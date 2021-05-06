@@ -28,7 +28,7 @@ const createBootstrapTable = (arrayObj, where) => {
   $('.intestazione').append(`<th scope="col">#</th>`);
 
   keys.forEach((el, idx) => {
-    if (el != 'id' && el != 'id_type' && el != 'id_genre') {
+    if (el != 'id' && el != 'id_type' && el != 'id_genre' && el != 'img_src') {
       $('.intestazione').append(
         `<th class="text-light" scope="col">${el}</th>`
       );
@@ -50,7 +50,12 @@ const createBootstrapTable = (arrayObj, where) => {
     for (key of keys) {
       const riga = document.getElementsByClassName(`riga${a}`);
       console.log(key);
-      if (key != 'id' && key != 'id_type' && key != 'id_genre') {
+      if (
+        key != 'id' &&
+        key != 'id_type' &&
+        key != 'id_genre' &&
+        key != 'img_src'
+      ) {
         //_____________________________________________________________________________
 
         if (key === 'title') {

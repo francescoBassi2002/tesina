@@ -28,11 +28,9 @@
         }else{
             echo json_encode(array("status" => "fail", "message" => "password not equal"));
         }
-            
-        
-        
+   
     }else{
-        //TODO: ADD GET CURRENT USER
+        
         session_start();
         
         if (key_exists("username" , $_SESSION)){
