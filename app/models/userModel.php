@@ -1,18 +1,18 @@
 <?php
 
 class Users{
-    private $db = null;
-    private $table = 'users';
-    private $queryCount = 0;
+    private static $db = null;
+    private static $table = 'users';
+    private static $queryCount = 0;
 
-    function __construct($db){
-        $this->db = $db;
+    static function __constructStatic($db){
+        self::$db = $db;
     }
 
-    public function logIn($username , $psw){
-        $this->queryCount +=1;
+    public static function logIn($username , $psw){
+        self::$queryCount +=1;
 
-        $res = $this->db->select("*")->from($this->table)->where("username = ? AND psw = ?")->params([ $username , $psw])->FetchOne();
+        $res = self::$db->select("*")->from(self::$table)->where("username = ? AND psw = ?")->params([ $username , $psw])->FetchOne();
 
         return $res;
 
