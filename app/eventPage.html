@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <link href="./style/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="intestation">
+      <h1>Evento</h1>
+    </div>
+    <div class="event-sheet bg-gradient"></div>
+
+    <script src="script/jquery.js" crossorigin="anonymous"></script>
+    <script
+      src="bootstrap/js/bootstrap.bundle.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const url = new URL(window.location.href);
+
+      if (!url.searchParams.get("event")) {
+        window.location.href = `${url.origin}/esercizi/tesina/app/userPage.php`;
+      }
+      //TODO:
+      //event sheet
+    </script>
+  </body>
+</html>

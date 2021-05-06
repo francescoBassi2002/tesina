@@ -1,0 +1,127 @@
+:root {
+  --secondary: #f14c00;
+  --bg-color: #000000;
+}
+body {
+  background-color: var(--bg-color);
+}
+h1 {
+  color: white;
+}
+.wrapper {
+  display: flex;
+  position: relative;
+}
+
+.main {
+  margin-left: 279px;
+  width: 100%;
+
+  display: block;
+}
+
+#sidebar {
+  position: fixed;
+  padding: 30px 0px;
+  width: 200px;
+  height: 100%;
+  margin-left: 0px;
+
+  z-index: 1;
+}
+
+#little-sidebar {
+  display: flex;
+}
+.nav-link {
+  color: white;
+}
+.nav-link:link {
+  text-decoration: none;
+  color: white;
+}
+.nav-link:hover {
+  background-color: aliceblue;
+  color: black;
+}
+.carousel {
+  height: 650px;
+  width: 100%;
+}
+
+.carousel .carousel-inner {
+  height: 100%;
+  width: 100%;
+}
+
+.carousel .carousel-inner .carousel-item {
+  height: 100%;
+  z-index: -1;
+  width: 100%;
+}
+.carousel-control-prev {
+  z-index: 0;
+}
+
+.carousel-img {
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+  height: 100%;
+  z-index: -1;
+  width: 100%;
+}
+
+.login {
+  margin-top: 30px;
+  border-radius: 8px;
+  width: 50%;
+  padding-bottom: 10px;
+}
+.btn-primary {
+  background-color: transparent;
+  border-color: var(--secondary);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary);
+
+  border-color: var(--secondary);
+}
+
+.modal-content {
+  background-color: var(--bg-color);
+  height: 600px;
+}
+
+.favourite-genre {
+  overflow: auto;
+  position: absolute;
+  height: 80%;
+  left: 15%;
+  width: 75%;
+}
+
+.popUp .closed {
+  display: none;
+}
+
+td {
+  color: white;
+}
+
+.intestation {
+  border: 3px solid red;
+}
+
+.intestation {
+  border: 3px solid red;
+}
+
+.event-sheet {
+  border: 3px solid yellow;
+  position: absolute;
+  height: 75%;
+  width: 50%;
+  left: 25%;
+  top: 25%;
+}
