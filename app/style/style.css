@@ -109,19 +109,27 @@ td {
   color: white;
 }
 
-.intestation {
-  border: 3px solid red;
-}
-
-.intestation {
-  border: 3px solid red;
-}
-
 .event-sheet {
-  border: 3px solid yellow;
   position: absolute;
   height: 75%;
   width: 50%;
   left: 25%;
   top: 25%;
+  border-radius: 10px;
+}
+
+.addWishList {
+  margin-top: 5px;
+  margin-left: 25%;
+  height: 40px;
+}
+.control {
+  display: flex;
+}
+
+.buy {
+  margin-top: 5px;
+
+  margin-left: 10px;
+  height: 40px;
 }

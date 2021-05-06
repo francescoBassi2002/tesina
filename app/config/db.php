@@ -26,7 +26,7 @@ class db {
                 return $this;               
             }
         }catch(PDOException $e){
-            echo ('pdo error: ' . $e->getMessage());
+            //echo ('pdo error: ' . $e->getMessage());
             return false;
         }
     }

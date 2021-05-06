@@ -14,9 +14,20 @@
   </head>
   <body>
     <div class="intestation">
-      <h1>Evento</h1>
+      <h1 class="text-center" style="margin-top: 20px">Event info</h1>
     </div>
-    <div class="event-sheet bg-gradient"></div>
+    <div class="event-sheet bg-gradient">
+      <div class="sheet-intestation"></div>
+      <div class="sheet-description">
+        <ul class="list-group list-group-flush" id="caratteristics"></ul>
+        <div class="control">
+          <button class="addWishList btn btn-outline-info">
+            Add to wish list
+          </button>
+          <button class="buy btn btn-primary">Buy</button>
+        </div>
+      </div>
+    </div>
 
     <script src="script/jquery.js" crossorigin="anonymous"></script>
     <script
@@ -25,10 +36,57 @@
     ></script>
     <script>
       const url = new URL(window.location.href);
-
+      let eventTitle = "";
       if (!url.searchParams.get("event")) {
         window.location.href = `${url.origin}/esercizi/tesina/app/userPage.php`;
+      } else {
+        eventTitle = url.searchParams.get("event");
       }
+
+      console.log(eventTitle);
+
+      const jsUcfirst = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      };
+
+      $(document).ready(() => {
+        $(".sheet-intestation").prepend(
+          `<h2 class="text-light text-center">${eventTitle}</h2>`
+        );
+        fetch(
+          `${url.origin}/esercizi/tesina/app/api/event/getOne.php?title=${eventTitle}`
+        )
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.status == "success") {
+              console.log(res.data);
+              delete res.data.img_src;
+              delete res.data.id_type;
+              delete res.data.id_genre;
+              delete res.data.id;
+              console.log(res.data);
+
+              for (key of Object.keys(res.data)) {
+                $("#caratteristics").append(
+                  `<li class="list-group-item bg-transparent text-light">${jsUcfirst(
+                    key
+                  )}: ${res.data[key]}</li>`
+                );
+              }
+            } else {
+              console.log(res.message);
+            }
+          });
+      });
+      $(".addWishList").click(async () => {
+        const Res = await fetch(
+          `${url.origin}/esercizi/tesina/app/api/event/addWishList.php?title=${eventTitle}`
+        );
+        const res = await Res.json();
+
+        alert(`${res.status} : ${res.message}`);
+      });
+
       //TODO:
       //event sheet
     </script>

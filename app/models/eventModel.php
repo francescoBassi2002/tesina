@@ -65,6 +65,31 @@
 
         }
 
+        public function getOne($title){
+            $this->queryCount +=1;
+
+            $res = $this->db->query("SELECT * FROM $this->table WHERE title = ?" , [$title])->FetchOne();
+
+            return $res;
+        }
+
+        public function addWishList($title , $username){
+            $this->queryCount +=1 ;
+            $id = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
+
+            $res = $this->db->query("INSERT INTO prefer_events (username , id_e) VALUES ( ? , ? )" , [$username , $id]);
+            return $res;
+
+        }
+
+        public function getAllWishList($username){
+            $this->queryCount += 1;
+
+            $res = $this->db->query("SELECT E.title FROM events E , prefer_events P WHERE P.id_e = E.id AND username = ?" , [$username])->FetchAll();
+
+            return $res;
+
+        }
     }
 
 ?>
