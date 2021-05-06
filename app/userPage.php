@@ -71,7 +71,7 @@
 
 
 <script type="text/html" id="li_lista_desideri">
-  <li class="nav-item">Titolo %num%</li>
+  <li class="nav-item" href="${url.origin}/esercizi/tesina/app/eventPage.html?event=${arrayObj[a][key]}">- %title%</li>
 
 </script>
 
@@ -94,7 +94,7 @@
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link">
+        <a href="index.html" class="nav-link">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
           Home
         </a>
@@ -108,15 +108,15 @@
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link" onclick="logout()">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-          Products
+          Log out
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link">
+        <a href="index.html" class="nav-link">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-          Customers
+            Home
         </a>
       </li>
 

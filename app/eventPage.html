@@ -20,14 +20,18 @@
       <div class="sheet-intestation"></div>
       <div class="sheet-description">
         <ul class="list-group list-group-flush" id="caratteristics"></ul>
-        <div class="control">
-          <button class="addWishList btn btn-outline-info">
-            Add to wish list
-          </button>
-          <button class="buy btn btn-primary">Buy</button>
-        </div>
+      </div>
+      <div class="control">
+        <button class="addWishList btn btn-outline-info">
+          Add to wish list
+        </button>
+        <button class="buy btn btn-primary">Buy</button>
       </div>
     </div>
+
+    <script type="text/html" id="event-img">
+      <img src="image/%img_src%" class="img-fluid event-image" />
+    </script>
 
     <script src="script/jquery.js" crossorigin="anonymous"></script>
     <script
@@ -36,6 +40,7 @@
     ></script>
     <script>
       const url = new URL(window.location.href);
+      const img = $("#event-img").text();
       let eventTitle = "";
       if (!url.searchParams.get("event")) {
         window.location.href = `${url.origin}/esercizi/tesina/app/userPage.php`;
@@ -60,19 +65,23 @@
           .then((res) => {
             if (res.status == "success") {
               console.log(res.data);
-              delete res.data.img_src;
               delete res.data.id_type;
               delete res.data.id_genre;
               delete res.data.id;
               console.log(res.data);
 
               for (key of Object.keys(res.data)) {
-                $("#caratteristics").append(
-                  `<li class="list-group-item bg-transparent text-light">${jsUcfirst(
-                    key
-                  )}: ${res.data[key]}</li>`
-                );
+                if (key != "img_src") {
+                  $("#caratteristics").append(
+                    `<li class="list-group-item bg-transparent text-light">${jsUcfirst(
+                      key
+                    )}: ${res.data[key]}</li>`
+                  );
+                }
               }
+              $(".sheet-description").append(
+                img.replace("%img_src%", res.data.img_src)
+              );
             } else {
               console.log(res.message);
             }

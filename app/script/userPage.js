@@ -195,9 +195,22 @@ $(document).ready(() => {
 whish_list = () => {
   $('#sidebar_list').empty();
   $('#sidebar_list').append('<h4>Lista desideri</h4>');
-  for (let a = 0; a < 3; a += 1) {
-    $('#sidebar_list').append(li_desideri.replace('%num%', a));
-  }
+
+  fetch(`${url.origin}/esercizi/tesina/app/api/event/getAllWishList.php `)
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status == 'success') {
+        res.data.forEach((el) => {
+          $('#sidebar_list').append(
+            `<li class="nav-item" ><a class="nav-link" href="${url.origin}/esercizi/tesina/app/eventPage.html?event=${el.title}">${el.title}</a></li>`
+          );
+        });
+      } else {
+        $('#sidebar_list').append(res.message);
+      }
+    })
+    .catch((err) => console.log);
+
   $('#little-sidebar').append(
     "<button type='button' id='go_main' class='btn btn-outline-light' style='margin-left: 30px;' onclick='goBackMenu()'>BACK</button>"
   );
@@ -208,4 +221,13 @@ const goBackMenu = () => {
   $('#sidebar_list').empty();
   $('#go_main').remove();
   $('#sidebar_list').append(nav_menu);
+};
+
+const logout = async () => {
+  const Res = await fetch(
+    `${url.origin}/esercizi/tesina/app/api/user/login_logOut.php`
+  );
+  const res = await Res.json();
+
+  window.location.href = `${url.origin}/esercizi/tesina/app/index.html`;
 };

@@ -133,3 +133,16 @@ td {
   margin-left: 10px;
   height: 40px;
 }
+
+.sheet-description {
+  display: flex;
+}
+
+.event-image {
+  margin-left: 20%;
+  margin-top: 15px;
+  border-radius: 3px;
+  height: 40%;
+  width: 40%;
+  border: solid 3px white;
+}
