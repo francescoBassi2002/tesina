@@ -69,7 +69,7 @@ const createBootstrapTable = (arrayObj, where) => {
     }
   }
 };
-
+/*
 $('.favourite-genre').submit((e) => {
   e.preventDefault();
   const data = new URLSearchParams(
@@ -86,10 +86,10 @@ $('.favourite-genre').submit((e) => {
       alert(`${res.status} : ${res.message}`);
     })
     .catch((err) => console.log);
-});
-
+});*/
+/*
 const getGenre = () => {
-  fetch(`${url.origin}/esercizi/tesina/app/api/event/allGenre_prefGenre.php`)
+  fetch(`${url.origin}/esercizi/tesina/app/api/event/allGenre.php`)
     .then((res) => res.json())
     .then((res) => {
       if (res.status == 'success') {
@@ -109,9 +109,10 @@ const getGenre = () => {
     .catch((err) => {
       console.log;
     });
-};
+};*/
 
 const createAdminContent = () => {
+  console.log('inizio admin content');
   fetch(`${url.origin}/esercizi/tesina/app/api/user/getCurrent_signUp.php`)
     .then((res) => res.json())
     .then((res) => {
@@ -151,10 +152,28 @@ const tableEvents = () => {
     .catch((err) => console.log);
 };
 
+//TODO:  get all with genre filters
+
 const carouselEvents = async () => {
-  const Res = await fetch(
-    `${url.origin}/esercizi/tesina/app/api/event/getAll_create.php`
+  const Pref = await fetch(
+    `${url.origin}/esercizi/tesina/app/api/event/preferences.php`
   );
+  const pref = await Pref.json();
+  let Res = null;
+  if (pref.status == 'success' && !pref.data.length == 0) {
+    console.log(pref.data); //lista generi degli eventi più presenti nella lista nei desideri
+    const genrePrefer = pref.data[0].genre;
+
+    Res = await fetch(
+      `${url.origin}/esercizi/tesina/app/api/event/getAll_create.php?genre=${genrePrefer}`
+    );
+  } else {
+    alert(`unable to get preferences: ${pref.message}`);
+    Res = await fetch(
+      `${url.origin}/esercizi/tesina/app/api/event/getAll_create.php`
+    );
+  }
+
   const res = await Res.json();
   //console.log(res);
   let active = '';
@@ -221,10 +240,10 @@ whish_list = () => {
 };
 
 const goBackMenu = () => {
-  //console.log('ciao');
   $('#sidebar_list').empty();
   $('#go_main').remove();
   $('#sidebar_list').append(nav_menu);
+  createAdminContent();
 };
 
 const logout = async () => {

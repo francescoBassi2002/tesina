@@ -29,8 +29,12 @@ class Genre{
 
       
     }
-    public function reset($username){
-        $this->db->query("DELETE FROM prefer_genres WHERE username = ?" , [$username]);
+    public function getPreferences($username){
+        $this->queryCount +=1;  
+
+        $query = "SELECT COUNT(*), G.genre FROM prefer_events P, events E, genres G WHERE P.id_e = E.id AND E.id_genre = G.id AND P.username = ? GROUP BY G.genre ORDER BY `COUNT(*)` DESC";
+        $res = $this->db->query($query , [$username])->FetchAll();
+        return $res;
     }
 
 }

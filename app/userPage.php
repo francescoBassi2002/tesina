@@ -99,14 +99,7 @@
           Home
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getGenre()">
-          <!-- Button trigger modal -->
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-            Prefer
-          
-        </a>
-      </li>
+      
       <li>
         <a href="#" class="nav-link" onclick="logout()">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
