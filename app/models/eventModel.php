@@ -73,11 +73,19 @@
             return $res;
         }
 
-        public function addWishList($title , $username){
+        public function addWishList($title , $username,$case){
             $this->queryCount +=1 ;
             $id = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
 
-            $res = $this->db->query("INSERT INTO prefer_events (username , id_e) VALUES ( ? , ? )" , [$username , $id]);
+            $table= ($case == 0? "prefer_events" : "like_events");
+
+            if($case == 1 && $this->db->query("SELECT * FROM $table WHERE id_e = ? AND username = ?" , [$id,$username])->FetchOne()){
+                $query = "DELETE FROM $table WHERE username = ? AND id_e = ?";
+            }else{
+                $query = "INSERT INTO $table (username , id_e) VALUES ( ? , ? )";
+            }
+
+            $res = $this->db->query($query , [$username , $id]);
             return $res;
 
         }
@@ -89,6 +97,24 @@
 
             return $res;
 
+        }
+        
+        public function existLikeList($title , $username){
+            $this->queryCount += 1;
+            $id = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
+
+            return $this->db->query("SELECT * FROM like_events WHERE id_e = ? AND username = ?" , [$id,$username])->FetchOne();
+        }
+
+        public function removeOneWishList($username , $title){
+
+            $this->queryCount += 1;
+           
+            $id_e = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
+
+            $res = $this->db->query("DELETE FROM prefer_events WHERE id_e= ? AND username = ?" , [$id_e,$username]);
+
+            return $res;
         }
     }
 

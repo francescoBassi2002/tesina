@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script
+      src="https://kit.fontawesome.com/12440d0edd.js"
+      crossorigin="anonymous"
+    ></script>
     <link
       href="bootstrap/css/bootstrap.min.css"
       rel="stylesheet"
@@ -22,7 +26,10 @@
         <ul class="list-group list-group-flush" id="caratteristics"></ul>
       </div>
       <div class="control">
-        <button class="addWishList btn btn-outline-info">
+        <button
+          class="addWishList btn btn-outline-info"
+          onclick="addWishList(0)"
+        >
           Add to wish list
         </button>
         <button class="buy btn btn-primary">Buy</button>
@@ -54,10 +61,29 @@
         return string.charAt(0).toUpperCase() + string.slice(1);
       };
 
+      const like = () => {
+        //<i class="fas fa-heart"></i>
+        console.log("like");
+      };
+
       $(document).ready(() => {
-        $(".sheet-intestation").prepend(
-          `<h2 class="text-light text-center">${eventTitle}</h2>`
-        );
+        fetch(
+          `${url.origin}/esercizi/tesina/app/api/event/addWishLikeList_exist.php?title=${eventTitle}`
+        )
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.status == "success") {
+              $(".sheet-intestation").prepend(
+                `<h2 class="text-light text-center">${eventTitle}</h2><h2 class="text-light like"><a href="#" onclick="addWishList(1)"><i class="fa-heart ${
+                  res.message == "not exist" ? "far" : "fas"
+                }" id="hearth"></i></a></h2>`
+              );
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
         fetch(
           `${url.origin}/esercizi/tesina/app/api/event/getOne.php?title=${eventTitle}`
         )
@@ -87,14 +113,25 @@
             }
           });
       });
-      $(".addWishList").click(async () => {
+
+      const addWishList = async (num) => {
+        const classe = $("#hearth").attr("class").split(" ")[1];
+        console.log(classe);
+        if (num == 1) {
+          if (classe == "far") {
+            $("#hearth").removeClass("far").addClass("fas");
+          } else {
+            $("#hearth").removeClass("fas").addClass("far");
+          }
+        }
+
         const Res = await fetch(
-          `${url.origin}/esercizi/tesina/app/api/event/addWishList.php?title=${eventTitle}`
+          `${url.origin}/esercizi/tesina/app/api/event/addWishLikeList_exist.php?title=${eventTitle}&case=${num}`
         );
         const res = await Res.json();
 
         alert(`${res.status} : ${res.message}`);
-      });
+      };
 
       //TODO:
       //event sheet

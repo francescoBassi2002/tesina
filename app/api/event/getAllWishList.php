@@ -24,10 +24,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
         }
 
     }else{
+        
         echo json_encode(array("status" => "fail" , "message"=>"not logged"));
 
     }
 
+}else{
+   
+    echo json_encode(array("status" => "fail" , "message"=>"invalid request method"));
+
+
+    
 }
 
 ?>

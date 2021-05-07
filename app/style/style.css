@@ -137,6 +137,9 @@ td {
 .sheet-description {
   display: flex;
 }
+.sheet-intestation {
+  display: flex;
+}
 
 .event-image {
   margin-left: 20%;
@@ -145,4 +148,25 @@ td {
   height: 40%;
   width: 40%;
   border: solid 3px white;
+}
+
+.wish-list-item {
+  display: flex;
+}
+
+.xButton {
+  text-decoration-color: transparent;
+  color: red;
+  margin-top: 8px;
+}
+
+.xButton:hover {
+  text-decoration-color: transparent;
+  font-size: larger;
+  margin-top: 10px;
+  color: red;
+}
+.like {
+  float: left;
+  margin-left: 50%;
 }
