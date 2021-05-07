@@ -10,7 +10,7 @@ let currentUser = {};
 
 const createBootstrapTable = (arrayObj, where) => {
   const keys = Object.keys(arrayObj[0]);
-  console.log(keys);
+  //console.log(keys);
 
   where.append(
     `
@@ -44,12 +44,12 @@ const createBootstrapTable = (arrayObj, where) => {
   });
 
   const righe = $('.table-body').children('tr');
-  console.log(righe);
+  //console.log(righe);
 
   for (let a = 0; a < righe.length; a += 1) {
     for (key of keys) {
       const riga = document.getElementsByClassName(`riga${a}`);
-      console.log(key);
+      //console.log(key);
       if (
         key != 'id' &&
         key != 'id_type' &&
@@ -75,7 +75,7 @@ $('.favourite-genre').submit((e) => {
   const data = new URLSearchParams(
     new FormData(document.getElementsByClassName('favourite-genre')[0])
   );
-  console.log(data);
+  //console.log(data);
 
   fetch(`${url.origin}/esercizi/tesina/app/api/event/allGenre_prefGenre.php`, {
     method: 'POST',
@@ -84,7 +84,8 @@ $('.favourite-genre').submit((e) => {
     .then((res) => res.json())
     .then((res) => {
       alert(`${res.status} : ${res.message}`);
-    });
+    })
+    .catch((err) => console.log);
 });
 
 const getGenre = () => {
@@ -94,9 +95,9 @@ const getGenre = () => {
       if (res.status == 'success') {
         $('.favourite-genre').empty();
         res.data.forEach((el) => {
-          console.log(el.genre);
+          //console.log(el.genre);
 
-          console.log(genreInput.replaceAll('%genre%', el.genre));
+          //console.log(genreInput.replaceAll('%genre%', el.genre));
 
           $('.favourite-genre').append(
             genreInput.replaceAll('%genre%', el.genre)
@@ -114,6 +115,7 @@ const createAdminContent = () => {
   fetch(`${url.origin}/esercizi/tesina/app/api/user/getCurrent_signUp.php`)
     .then((res) => res.json())
     .then((res) => {
+      console.log('ciao');
       if (res.status == 'success') {
         console.log(res.data);
         const keys = Object.keys(res.data);
@@ -121,8 +123,8 @@ const createAdminContent = () => {
         keys.forEach((el) => {
           currentUser[el] = res.data[el];
         });
-        console.log(currentUser);
-        console.log(`admin: ${currentUser.admin}`);
+        //console.log(currentUser);
+        //console.log(`admin: ${currentUser.admin}`);
 
         if (currentUser.admin == '1') {
           $('.nav-item').append(`<li>
@@ -136,7 +138,8 @@ const createAdminContent = () => {
       } else {
         alert(`${res.status} : ${res.message}`);
       }
-    });
+    })
+    .catch((err) => console.log(err));
 };
 
 const tableEvents = () => {
@@ -144,7 +147,8 @@ const tableEvents = () => {
     .then((res) => res.json())
     .then((res) => {
       createBootstrapTable(res, $('.main-content'));
-    });
+    })
+    .catch((err) => console.log);
 };
 
 const carouselEvents = async () => {
@@ -152,7 +156,7 @@ const carouselEvents = async () => {
     `${url.origin}/esercizi/tesina/app/api/event/getAll_create.php`
   );
   const res = await Res.json();
-  console.log(res);
+  //console.log(res);
   let active = '';
   res.forEach((el, idx) => {
     if (idx == 0) {
@@ -181,10 +185,10 @@ const carouselEvents = async () => {
 };
 
 $(document).ready(() => {
-  console.log('ciao');
+  //console.log('ciao');
   $('#sidebar_list').empty();
   $('#sidebar_list').append(nav_menu);
-  console.log(carousel);
+  //console.log(carousel);
 
   carouselEvents();
   tableEvents();
@@ -217,7 +221,7 @@ whish_list = () => {
 };
 
 const goBackMenu = () => {
-  console.log('ciao');
+  //console.log('ciao');
   $('#sidebar_list').empty();
   $('#go_main').remove();
   $('#sidebar_list').append(nav_menu);

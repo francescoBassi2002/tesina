@@ -4,7 +4,7 @@
     require "../../config/db.php";
     
     $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
-    //$User = new Users($conn);
+    $User = new Users($conn);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_POST["username"])){
@@ -20,8 +20,8 @@
         $psw = md5($_POST["psw"]);
         
        
-        Users::__constructStatic($conn);
-        $res = Users::login($username , $psw);
+       
+        $res = $User->login($username , $psw);
         //print_r($res);
         
 
