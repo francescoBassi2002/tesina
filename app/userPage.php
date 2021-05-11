@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,28 +21,8 @@
 ?>
 
 <!-- Modal -->
-<div class="modal fade popUp" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-light" id="staticBackdropLabel">Your favourite musical genres</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body justify-content-center">
-        <form class="favourite-genre">
-          <!------  genres  -------->
+<!-- Modal -->
 
-          <!-- -->         
-          
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- _______________________________________ -->
   <div class="wrapper">
   <?php include "components/sidebar_content.php"?>
@@ -168,6 +149,11 @@
 
 
 <script src="script/userPage.js"></script>
+
+
+
+<!-- Button trigger modal -->
+
 
 
 </body>

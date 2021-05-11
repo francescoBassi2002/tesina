@@ -172,3 +172,33 @@ td {
   float: left;
   margin-left: 50%;
 }
+#graphic {
+  width: 750px;
+  border-radius: 10px;
+}
+.graphic-control {
+  position: relative;
+  margin-right: 40px;
+  width: 50%;
+}
+.form-select {
+  width: 100%;
+}
+.row .col-4 {
+  width: 500px;
+  border-radius: 15px;
+  height: 100%;
+}
+.row {
+  margin: 20px;
+  height: 500px;
+  border-radius: 20px;
+}
+
+.col img {
+  height: 100%;
+}
+
+.canvasjs-chart-canvas {
+  border-radius: 15px;
+}
