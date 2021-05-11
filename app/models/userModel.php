@@ -50,6 +50,28 @@ class Users{
         return $this->queryCount;
     }
     
+    public function pay($username , $cost){
+        $this->queryCount +=1;
+        $usersTable = "users";
+        
+        $res = $this->db->query("UPDATE $usersTable SET aviable_balance = aviable_balance - ? WHERE username = ?" , [$cost , $username]);
+        if(!$res){
+            $out = "error";
+        }else{
+            if(intval($this->getCurrentBalance($username)) - $cost <0){
+                $out = "no money";
+            }else{
+                $out = "success";
+            }
+        }
+        return $out;
+    }
+
+    public function getCurrentBalance($username){
+        $this->queryCount += 1;
+        $res = $this->db->query("SELECT aviable_balance FROM users WHERE username = ?" , [$username])->FetchOne()["aviable_balance"];
+        return $res;
+    }
 
 }
 

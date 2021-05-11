@@ -116,6 +116,19 @@
 
             return $res;
         }
+
+        public function getCostByTitle($title){
+            $this->queryCount += 1;
+            $res = $this->db->query("SELECT ticket_price FROM events WHERE title = ?" , [$title])->FetchOne();
+            if(!$res){
+                $out = $res;
+            }else{
+                $out = $res["ticket_price"];
+            }
+            return $out;
+
+        }
+
     }
 
 ?>

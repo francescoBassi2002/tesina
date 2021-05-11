@@ -14,12 +14,14 @@ h1 {
 }
 
 .main {
-  margin-left: 279px;
+  margin-left: 270px;
   width: 100%;
 
   display: block;
 }
-
+#hearth {
+  color: red;
+}
 #sidebar {
   position: fixed;
   padding: 30px 0px;

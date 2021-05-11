@@ -165,6 +165,7 @@ const carouselEvents = async () => {
   const pref = await Pref.json();
   let Res = null;
   if (pref.status == "success" && !pref.data.length == 0) {
+    //se ha almeno un genere preferito
     console.log(pref.data); //lista generi degli eventi più presenti nella lista nei desideri
     const genrePrefer = pref.data[0].genre;
 
@@ -181,7 +182,8 @@ const carouselEvents = async () => {
   const res = await Res.json();
   //console.log(res);
   let active = "";
-  res.forEach((el, idx) => {
+  res.slice(0, 3).forEach((el, idx) => {
+    //res.slice perchè voglio solo i primi 3 della lista di tutti gli eventi
     if (idx == 0) {
       active = "active";
 
