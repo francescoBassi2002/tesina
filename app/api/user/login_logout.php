@@ -40,7 +40,7 @@
             $_SESSION["name"] = $res["name"];
             $_SESSION["surname"] = $res["surname"];
             $_SESSION["email"] = $res["email"];
-            $_SESSION["admin"] = ($res == 1 ? true : false);
+            $_SESSION["admin"] = ($res["admin"] == 1 ? true : false);
             $_SESSION["psw"] = $res["psw"];
             echo json_encode(array("status" => "success" , "message" => "ok"));
         }

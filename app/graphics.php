@@ -1,3 +1,11 @@
+<?php 
+    session_start();
+    if(!isset($_SESSION) || !key_exists("username" , $_SESSION)){
+        header("location: login.html");
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,7 +29,7 @@
                 
                 
             </select>
-            <button class="btn btn-outline-info" type="button" id="button">Button</button>
+            <button class="btn btn-outline-light go_main" type="button" id="button">Button</button>
         </div>
         <div class="row justify-content-evenly">
             <div class="container-fluid graphic-container align-content-center col-4 h-100" id="graphic">
@@ -89,8 +97,10 @@
                 },
                 data: [
                 {
+                    showInLegend: true,
+                    name: "Sales trend",
                     // Change type to "bar", "area", "spline", "pie",etc.
-                    type: "area",
+                    type: "line",
                     dataPoints: dataPoints
                 }
                 ]

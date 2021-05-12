@@ -107,7 +107,7 @@ const createAdminContent = () => {
               <a href="graphics.php" class="nav-link">
               <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
 
-                Graphic
+                Charts
               </a>
             </li>
             `);
@@ -216,8 +216,8 @@ whish_list = () => {
     })
     .catch((err) => console.log);
 
-  $('#little-sidebar').append(
-    "<button type='button' id='go_main' class='btn btn-outline-light' style='margin-left: 30px;' onclick='goBackMenu()'>BACK</button>"
+  $('#sidebar').append(
+    "<button type='button' id='go_main' class='btn btn-outline-light go_main' style='margin-left: 30px;' onclick='goBackMenu()'>BACK</button>"
   );
 };
 

@@ -56,16 +56,7 @@
 
 </script>
 
-<script type="text/html" id="genre-input">
-<!-------------->
-        <div class="input-group mb-3">
-          <div class="input-group-text">
-            <input class="form-check-input mt-0" type="checkbox" value="%genre%" aria-label="Checkbox for following text input" name="genre[]">
-          </div>
-          <label class="form-control">%genre%</label>
-        </div>
-        <!-- -->  
-</script>
+
 
 <script type="text/html" id="menu">
   <li class="nav-item">
@@ -87,12 +78,7 @@
           Log out
         </a>
       </li>
-      <li>
-        <a href="index.html" class="nav-link">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-            Home
-        </a>
-      </li>
+     
 
 </script>
 
