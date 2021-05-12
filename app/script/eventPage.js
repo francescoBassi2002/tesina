@@ -23,7 +23,7 @@ $(document).ready(() => {
         $('.sheet-intestation').prepend(
           `<h2 class="text-light text-center" style="width:100%;">${eventTitle}</h2><h2 class="text-light like" style="width:10%;"><a href="#" onclick="addWishList(1)"><i class="fa-heart ${
             res.message == 'not exist' ? 'far' : 'fas'
-          }" id="hearth" class="margin-right:30px"></i></a></h2>`
+          }" id="hearth"></i></a></h2>`
         );
       }
     })
