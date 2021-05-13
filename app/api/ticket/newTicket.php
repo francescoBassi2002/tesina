@@ -1,9 +1,10 @@
 
 <?php
+require "../../config/globals.php";
+require "../../models/eventModel.php";
+
 require "../../models/ticketModel.php";
 require "../../models/userModel.php";
-require "../../models/eventModel.php";
-require "../../config/globals.php";
 require "../../config/db.php";
 
 $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
@@ -27,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
                     $res = $Ticket->add($_SESSION["username"] , $title , $count);
                     if($res){
                         $current_balance = $User->getCurrentBalance($_SESSION["username"]);
+
                         $output = array("status" => "success" , "message" => "ticket buyed. Current balance: " . ( $current_balance? $current_balance : "no aviable"));
                     }else{
                         $output = array("status" => "fail" , "message" => "something went wrong");

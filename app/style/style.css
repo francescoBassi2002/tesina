@@ -3,6 +3,10 @@
   --bg-color: #1c1c1c;
   --btn-color: rgba(255, 255, 255, 0.425);
 }
+* {
+  font-family: "Comfortaa", cursive;
+}
+
 body {
   background-color: var(--bg-color);
 }
@@ -79,6 +83,7 @@ h1 {
 
 .carousel-img {
   filter: blur(6px);
+
   -webkit-filter: blur(6px);
   height: 100%;
   z-index: -1;
@@ -182,7 +187,7 @@ td {
 
 .xButton:hover {
   text-decoration-color: transparent;
-  font-size: larger;
+  transform: scale(1.5);
   margin-top: 10px;
   color: red;
 }
