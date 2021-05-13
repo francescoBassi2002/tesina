@@ -60,12 +60,12 @@ class Ticket{
 
             $receipt = preparePdf($pdfName . ".pdf" , $body);
 
-            move_uploaded_file( $receipt ,"pdf/");
+            //move_uploaded_file( $receipt ,"pdf/");
             //TODO: SISTEMARE IL FATTO CHE LI SALVA NEL POSTO SBAGLIATO
 
-            sendMail("bacobas.f@gmail.com" , "bacobas1977" , $_SESSION["email"] , "Payment receipt" , "no-reply" , $receipt);
+            $email_val = sendMail("tesina.bassi@gmail.com" , "ciaociao1!" , $_SESSION["email"] , "Payment receipt" , "no-reply" , $receipt);
 
-            if (!$res){
+            if (!$res || !$email_val){
                 $not_error = false;
                 break;
             }

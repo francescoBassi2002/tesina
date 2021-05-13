@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
 
                         $output = array("status" => "success" , "message" => "ticket buyed. Current balance: " . ( $current_balance? $current_balance : "no aviable"));
                     }else{
-                        $output = array("status" => "fail" , "message" => "something went wrong");
+                        $output = array("status" => "fail" , "message" => "something went wrong, check your email");
                     }
                     
                 }else{
