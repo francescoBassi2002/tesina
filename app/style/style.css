@@ -62,7 +62,10 @@ h1 {
 }
 
 .table-responsive {
-  margin: 30px 30px 30px 3 0px;
+  margin: 30px 30px 30px 30px;
+}
+.table {
+  margin: 30px 30px 30px 30px;
 }
 
 .carousel .carousel-inner {
@@ -267,4 +270,32 @@ td {
 
 .btn-second:hover {
   transform: scale(1.1);
+}
+
+.promotion {
+  display: flex;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.choose-intestation {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.choose-control {
+  align-content: space-between;
+  margin-left: 30px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+#percent-input {
+  background-color: transparent;
+  color: var(--secondary);
+  border-color: #1db954;
+  border-radius: 5px;
+}
+#percent {
+  color: var(--secondary);
+  background-color: transparent;
+  border-color: transparent;
 }

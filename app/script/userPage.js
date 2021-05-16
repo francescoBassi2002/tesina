@@ -18,6 +18,14 @@ const createBootstrapTable = (arrayObj, where) => {
   const keys = Object.keys(arrayObj[0]);
   //console.log(keys);
 
+  arrayObj.forEach((el) => {
+    delete el['discounted'];
+    delete el['id'];
+    delete el['id_type'];
+    delete el['id_genre'];
+    delete el['img_src'];
+  });
+
   where.append(
     `
         <div class="table-responsive">
@@ -34,11 +42,7 @@ const createBootstrapTable = (arrayObj, where) => {
   $('.intestazione').append(`<th scope="col">#</th>`);
 
   keys.forEach((el, idx) => {
-    if (el != 'id' && el != 'id_type' && el != 'id_genre' && el != 'img_src') {
-      $('.intestazione').append(
-        `<th class="text-light" scope="col">${el}</th>`
-      );
-    }
+    $('.intestazione').append(`<th class="text-light" scope="col">${el}</th>`);
   });
 
   arrayObj.forEach((el, idx) => {
@@ -56,21 +60,15 @@ const createBootstrapTable = (arrayObj, where) => {
     for (key of keys) {
       const riga = document.getElementsByClassName(`riga${a}`);
       //console.log(key);
-      if (
-        key != 'id' &&
-        key != 'id_type' &&
-        key != 'id_genre' &&
-        key != 'img_src'
-      ) {
-        //_____________________________________________________________________________
 
-        if (key === 'title') {
-          $(riga).append(
-            `<td class="text-light"><a href="${url.origin}/esercizi/tesina/app/eventPage.html?event=${arrayObj[a][key]}" class="nav-link">${arrayObj[a][key]}</a></td>`
-          );
-        } else {
-          $(riga).append(`<td class="text-light">${arrayObj[a][key]}</td>`);
-        }
+      //_____________________________________________________________________________
+
+      if (key === 'title') {
+        $(riga).append(
+          `<td class="text-light"><a href="${url.origin}/esercizi/tesina/app/eventPage.html?event=${arrayObj[a][key]}" class="nav-link">${arrayObj[a][key]}</a></td>`
+        );
+      } else {
+        $(riga).append(`<td class="text-light">${arrayObj[a][key]}</td>`);
       }
     }
   }

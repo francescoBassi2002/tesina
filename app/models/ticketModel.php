@@ -60,7 +60,6 @@ class Ticket{
 
             $receipt = preparePdf($pdfName . ".pdf" , $body);
 
-            //move_uploaded_file( $receipt ,"pdf/");
             //TODO: SISTEMARE IL FATTO CHE LI SALVA NEL POSTO SBAGLIATO
 
             $email_val = sendMail("tesina.bassi@gmail.com" , "ciaociao1!" , $_SESSION["email"] , "Payment receipt" , "no-reply" , $receipt);
@@ -84,6 +83,17 @@ class Ticket{
             AND E.title =?
             GROUP BY T.date" , [$title])
         ->FetchAll();
+
+        return $res;
+    }
+
+    public function howMany_title($title){
+        $this->query_count +=1;
+
+        $id_e = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
+
+        $res = $this->db->query("SELECT COUNT(*) FROM tickets WHERE id_e = ?" , [$id_e])->FetchOne()["COUNT(*)"];
+        
 
         return $res;
     }

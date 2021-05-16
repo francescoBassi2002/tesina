@@ -83,14 +83,16 @@ const addWishList = async (num) => {
 
 $('#buy').click(async () => {
   const cont = $('#count').val();
+  console.log(cont);
 
-  if (cont) {
+  if (cont && cont > 0) {
     const Res = await fetch(
       `${url.origin}/esercizi/tesina/app/api/ticket/newTicket.php?title=${eventTitle}&count=${cont}`
     );
     const res = await Res.json();
     alert(`${res.status}: ${res.message}`);
+    location.reload();
   } else {
-    alert('insert how many tickets you want to buy');
+    alert('invalid number of ticket');
   }
 });

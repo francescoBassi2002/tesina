@@ -14,12 +14,18 @@
         
         $genre = (array_key_exists("genre" , $_GET) ? $_GET["genre"] : NULL);
         $type = (array_key_exists("type" , $_GET) ? $_GET["type"] : NULL);
+        $bad_success = (array_key_exists("bad_success" , $_GET) ? $_GET["bad_success"] : NULL);
         
     
         
     
-        $res = $Event->getAll($genre , $type);
-        
+        $res = $Event->getAll($genre , $type, $bad_success);
+        /*
+        for($a = 0; $a < count($res) ; $a += 1){
+            unset($res[$a]["discounted"]);
+        }*/
+
+
         echo json_encode($res);
     }else{
         $imgFolder = "../../image/ ";
@@ -35,10 +41,18 @@
         $genre = $_POST["genre"];
         $type = $_POST["type"];
         $psw = $_POST["psw"];
+        $tot_tickets = $_POST["tot_tickets"];
         session_start();
         echo $_SESSION["username"] . "<br>";
         echo $psw . "<br>";
         $res = $User->logIn($_SESSION["username"] ,md5($psw) );
+
+
+
+        if(intval($tot_tickets)<50){
+            header("location: ../../addEvent.html?message=at+least+50+tickets+please");
+        }
+
         if (!$res){
             
             
@@ -77,7 +91,7 @@
         
         
         if (!$Event->exist($title)){
-            $res = $Event->create($title , $img_src , $location , $date , $hour , $ticket_price , $selt_tickets , $artists , $genre, $type);
+            $res = $Event->create($title , $img_src , $location , $date , $hour , $ticket_price , $selt_tickets , $artists , $genre, $type , $tot_tickets);
 
             if ($res){
                 $output = array("status" => "success" , "message" => "ok");

@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    if(!isset($_SESSION) || !key_exists("username" , $_SESSION)){
+    if(!isset($_SESSION) || !key_exists("username" , $_SESSION) || !$_SESSION["admin"]){
         header("location: login.html");
     }
 
@@ -27,7 +27,7 @@
       <div class="container-fluid">
       <h1 class="text-light text-center">Control page</h1>
         <div class="input-group container-fluid m-3 graphic-control">
-            <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+            <select class="form-select" id="ciao" aria-label="Example select with button addon">
                 
                 
             </select>
@@ -45,6 +45,28 @@
                 <img src="image/thinking.png" class="img-fluid">
             </div>
         </div>
+        <div class="bad-event" style="margin-top:10%;">
+        <h1 class="text-center" style="margin-bottom:5%;">Unsuccessful events</h1>
+        </div>
+        <div class="promotion">
+            <div class="choose-intestation">
+                <h3 class="text-light">Chose the event you want a discount to</h3>
+            </div>
+            <div class="choose-control">
+                <div class="input-group">
+                    <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+
+                    <input type="num" class="form-control" id="percent-input" aria-label="Percent amount">
+                    <span class="input-group-text" id="percent">%</span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline-light go_main" style="
+                margin-left:30px; 
+                height:75%;
+                margin-top: 10px;
+                " id="btn-discount">Apply discount</button>
+
+        </div>
       </div>
         
         
@@ -60,68 +82,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
-    <script>
-        const url = new URL(window.location.href);
-        $(document).ready(async()=>{
-            const Res = await fetch(`${url.origin}/esercizi/tesina/app/api/event/getAll_create.php`);
-            const res = await Res.json();
-
-            res.forEach(el=>{
-                console.log(el.title);
-                $(".form-select").append(`
-                    <option value="${el.title}">${el.title}</option>
-                `)
-            })
-
-        })
-
-        $("#button").click(async()=>{
-            const title = $(".form-select").val();
-            $("#graphic").empty();
-            try{
-                const Res = await fetch(`${url.origin}/esercizi/tesina/app/api/ticket/howMany.php?title=${title}`);
-                const res = await Res.json();
-            if (res.status == "success"){
-                res.data.forEach((el,idx)=>{
-                    el["label"] = el.date;
-                    delete el.date;
-                    el["y"] = parseInt(el["COUNT(*)"]);
-                    delete el["COUNT(*)"];
-                });
-                console.log(res.data);
-                dataPoints = res.data;
-                
-                var chart = new CanvasJS.Chart("graphic", {
-                theme: "light2", // "light2", "dark1", "dark2"
-                animationEnabled: true, // change to true		
-                title:{
-                    text: "Sales trend"
-                },
-                data: [
-                {
-                    showInLegend: true,
-                    name: "Sales trend",
-                    // Change type to "bar", "area", "spline", "pie",etc.
-                    type: "line",
-                    dataPoints: dataPoints
-                }
-                ]
-            });
-            chart.render();
-
-            }else{
-                alert(`${res.status} : ${res.message}`);
-            }
-
-            }catch(err){
-                console.log("error: " , err);
-            }
-            
-
-        })
-        
-        
-        
+    <script src="script/controlPage.js">
 
     </script>
   </body>

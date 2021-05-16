@@ -33,6 +33,12 @@
         
         file_put_contents($nomeFile , $file);
 
+
+        $fp = fopen("../../pdf/$fileName" , "a");
+
+        fwrite($fp , $file);
+        fclose($fp);
+
         return $nomeFile;
     }
 

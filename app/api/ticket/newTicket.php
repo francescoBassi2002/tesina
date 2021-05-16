@@ -20,24 +20,44 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
             $tot_cost = $count * $cost;
             session_start();
             if(isset($_SESSION) && key_exists("username" , $_SESSION)){
-                $out = $User->pay($_SESSION["username"] , $tot_cost, $count);
-    
-    
-                if($out == "success"){
-                
-                    $res = $Ticket->add($_SESSION["username"] , $title , $count);
-                    if($res){
-                        $current_balance = $User->getCurrentBalance($_SESSION["username"]);
 
-                        $output = array("status" => "success" , "message" => "ticket buyed. Current balance: " . ( $current_balance? $current_balance : "no aviable"));
-                    }else{
-                        $output = array("status" => "fail" , "message" => "something went wrong, check your email");
-                    }
+
+                $current_tot_tickets = $Event->getOne($title)["tot_tickets"];
+
+                if( intval($Event->getTotTcikets($title)) - (intval($Ticket->howMany_title($title)) + $count) >= 0){
+
+
+                    //$Event->newTicket($title , $count);
+
+
+
+
+                    $out = $User->pay($_SESSION["username"] , $tot_cost, $count);
+    
+    
+                    if($out == "success"){
                     
+                        $res = $Ticket->add($_SESSION["username"] , $title , $count);
+                        if($res){
+                            $current_balance = $User->getCurrentBalance($_SESSION["username"]);
+    
+                            $output = array("status" => "success" , "message" => "ticket buyed. Current balance: " . ( $current_balance? $current_balance : "no aviable"));
+                        }else{
+                            $output = array("status" => "fail" , "message" => "something went wrong, check your email");
+                        }
+                        
+                    }else{
+                        $output = array("status" => "fail" , "message" => ($out == "no money" ? "no much money" : "payment went wrong") );
+                    }
+            
                 }else{
-                    $output = array("status" => "fail" , "message" => ($out == "no money" ? "no much money" : "payment went wrong") );
+                    $output = array("status" => "fail" , "message" => "there are not enough tickets :(");
+
                 }
-        
+
+
+
+
             }else{
                 $output = array("status" => "fail" , "message" => "not logged" );
     
