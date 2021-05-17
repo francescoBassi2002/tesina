@@ -72,7 +72,7 @@
             return ($res ? true : false );
         }
 
-        public function create($title , $img_src , $location , $date , $hour , $ticket_price , $selt_tickets , $artists , $genre, $type, $tot_tickets){
+        public function create($title , $img_src , $location , $date , $hour , $ticket_price , $artists , $genre, $type, $tot_tickets){
             
             $this->queryCount +=1;
             
@@ -80,11 +80,11 @@
             $id_genre = $this->db->query("SELECT id FROM genres WHERE genre = ?" , [$genre])->FetchOne()["id"];
             $id_type = $this->db->query("SELECT id FROM types WHERE type = ?" , [$type])->FetchOne()["id"];
 
-            $params = [$title ,$id_type , $id_genre , $img_src , $location , $date , $hour , $ticket_price , $selt_tickets , $artists , $tot_tickets];
+            $params = [$title ,$id_type , $id_genre , $img_src , $location , $date , $hour , $ticket_price , $artists , $tot_tickets];
 
             //print_r($params);
             
-            $res = $this->db->query("INSERT INTO $this->table (title , id_type , id_genre ,img_src , location , date , hour , ticket_price , selt_tickets , artists, tot_tickets, discounted) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ?, ?, 0)" , $params );
+            $res = $this->db->query("INSERT INTO $this->table (title , id_type , id_genre ,img_src , location , date , hour , ticket_price , artists, tot_tickets, discounted) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ?, 0)" , $params );
 
             
             return $res;

@@ -18,7 +18,7 @@
     //Load Composer's autoloader
 
     function preparePdf($fileName , $html){
-        $nomeFile = $fileName;
+        
 
         $domPdf = new Dompdf();
         
@@ -31,15 +31,17 @@
         
         $file = $domPdf->output();
         
-        file_put_contents($nomeFile , $file);
-
-
+        
         $fp = fopen("../../pdf/$fileName" , "a");
 
         fwrite($fp , $file);
         fclose($fp);
 
-        return $nomeFile;
+        //file_put_contents($fileName , $file, FILE_USE_INCLUDE_PATH);
+
+
+
+        return "../../pdf/$fileName";
     }
 
 

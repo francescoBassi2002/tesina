@@ -56,7 +56,7 @@
                 <div class="input-group">
                     <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
 
-                    <input type="num" class="form-control" id="percent-input" aria-label="Percent amount">
+                    <input type="number" class="form-control" id="percent-input" aria-label="Percent amount">
                     <span class="input-group-text" id="percent">%</span>
                 </div>
             </div>

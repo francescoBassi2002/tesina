@@ -15,7 +15,6 @@ let genreInput = $('#genre-input').text();
 let currentUser = {};
 
 const createBootstrapTable = (arrayObj, where) => {
-  const keys = Object.keys(arrayObj[0]);
   //console.log(keys);
 
   arrayObj.forEach((el) => {
@@ -24,7 +23,13 @@ const createBootstrapTable = (arrayObj, where) => {
     delete el['id_type'];
     delete el['id_genre'];
     delete el['img_src'];
+    delete el['tot_tickets'];
+
+    el.ticket_price += ' $';
   });
+  const keys = Object.keys(arrayObj[0]);
+
+  console.log(arrayObj);
 
   where.append(
     `

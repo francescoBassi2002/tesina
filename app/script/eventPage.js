@@ -41,6 +41,8 @@ $(document).ready(() => {
         delete res.data.id_type;
         delete res.data.id_genre;
         delete res.data.id;
+        delete res.data.discounted;
+        delete res.data.tot_tickets;
         console.log(res.data);
 
         for (key of Object.keys(res.data)) {
@@ -57,6 +59,22 @@ $(document).ready(() => {
         );
       } else {
         console.log(res.message);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  fetch(`${url.origin}/esercizi/tesina/app/api/user/getCurrent_signUp.php`)
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status == 'fail') {
+        alert(`${res.status}: ${res.message}`);
+      } else {
+        const user = res.data;
+        $('.intestation').append(
+          `<h2 class="text-center text-light">Current balance: ${user.aviable_balance} $</h2>`
+        );
       }
     });
 });

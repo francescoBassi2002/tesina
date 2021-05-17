@@ -29,14 +29,13 @@
         echo json_encode($res);
     }else{
         $imgFolder = "../../image/ ";
-        
+        print_r($_POST);
         $title = $_POST["title"];
         $img = $_FILES["img_src"];
         $location = $_POST["location"];
         $date = $_POST["date"];
         $hour = $_POST["hour"];
         $ticket_price = $_POST["ticket_price"];
-        $selt_tickets = 0;
         $artists = $_POST["artists"];
         $genre = $_POST["genre"];
         $type = $_POST["type"];
@@ -91,7 +90,7 @@
         
         
         if (!$Event->exist($title)){
-            $res = $Event->create($title , $img_src , $location , $date , $hour , $ticket_price , $selt_tickets , $artists , $genre, $type , $tot_tickets);
+            $res = $Event->create($title , $img_src , $location , $date , $hour , $ticket_price , $artists , $genre, $type , $tot_tickets);
 
             if ($res){
                 $output = array("status" => "success" , "message" => "ok");
@@ -104,7 +103,7 @@
             
         }
         header("location: ../../addEvent.html?message=" . $output["status"] . ":+" . $output["message"]);
-        
+        //echo json_encode($output);
 
     }
     
