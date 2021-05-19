@@ -62,29 +62,62 @@ const createBootstrapTable = (arrayObj, where) => {
 
 const url = new URL(window.location.href);
 $(document).ready(async () => {
-  const Res = await fetch(
-    `${url.origin}/esercizi/tesina/app/api/event/getAll_create.php`
-  );
-  const res = await Res.json();
+  try {
+    const Res = await fetch(
+      `${url.origin}/esercizi/tesina/app/api/event/getAll_create.php`
+    );
+    const res = await Res.json();
 
-  res.forEach((el) => {
-    console.log(el.title);
-    $('#ciao').append(`
-                      <option value="${el.title}">${el.title}</option>
-                  `);
-  });
+    res.forEach((el) => {
+      console.log(el.title);
+      $('#ciao').append(`
+                        <option value="${el.title}">${el.title}</option>
+                    `);
+    });
 
-  const BadE = await fetch(
-    `${url.origin}/esercizi/tesina/app/api/event/getAll_create.php?bad_success=1`
-  );
-  const badE = await BadE.json();
+    const BadE = await fetch(
+      `${url.origin}/esercizi/tesina/app/api/event/getAll_create.php?bad_success=1`
+    );
+    const badE = await BadE.json();
 
-  createBootstrapTable(badE, $('.bad-event'));
-  badE.forEach((el) => {
-    $('#inputGroupSelect04').append(`
-                      <option value="${el.title}">${el.title}</option>
-                  `);
-  });
+    createBootstrapTable(badE, $('.bad-event'));
+    badE.forEach((el) => {
+      $('#inputGroupSelect04').append(`
+                        <option value="${el.title}">${el.title}</option>
+                    `);
+    });
+    let htmlEl = '';
+
+    for (let a = 0; a < 3; a++) {
+      const ES = await fetch(
+        `${url.origin}/esercizi/tesina/app/api/event/nextMonthEvent.php?es=es${
+          a + 1
+        }`
+      );
+
+      const es = await ES.json();
+      console.log(es);
+      if (es.status == 'success') {
+        if (a == 0) {
+          htmlEl = `<li>Next month event with more ticket purchased: <b>${es.data.title}</b> with <b>${es.data.next_month_tickets}</b> tickets</li>`;
+        } else if (a == 1) {
+          htmlEl = `<li>Total sales revenue from rock concerts in the last 6 months: <b>${parseInt(
+            es.data.somma_rock
+          ).toFixed(2)} $</b></li>`;
+        } else if (a == 2) {
+          htmlEl = `<li>Month of the year with more events: <b>${es.data.mese}</b> with <b>${es.data.num_eventi}</b> events</li>`;
+        }
+
+        $('.statistic-list').append(htmlEl);
+      } else {
+        alert(`${res.status}: ${res.message}`);
+      }
+    }
+  } catch (err) {
+    console.log(`Err: ${err}`);
+  }
+
+  //_----------------------------------------------TODO:
 });
 
 $('#button').click(async () => {

@@ -67,6 +67,16 @@
                 " id="btn-discount">Apply discount</button>
 
         </div>
+        <hr class="bg-light">
+        <div class="container-fluid statistic text-light" style="margin-top: 40px">
+          <h2 class="text-center">Statistic </h2>
+          <ul class="statistic-list">
+            <!-- 3 QUERY -->
+          </ul>
+
+
+        </div>
+
       </div>
         
         

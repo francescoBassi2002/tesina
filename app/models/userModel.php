@@ -73,6 +73,11 @@ class Users{
         return $res;
     }
 
+    public function destroy($username){
+        $this->queryCount += 1;
+        $res = $this->db->query("DELETE FROM users WHERE username = ?" , [$username]);
+        return $res;
+    }
 }
 
 ?>

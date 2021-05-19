@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <link href="./style/style.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="user-sheet">
+      <div class="user-intestation"></div>
+      <div class="user-info">
+        <ul class="list-group"></ul>
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary go_main"
+        onclick="destroyUser()"
+      >
+        Erase this user
+      </button>
+    </div>
+
+    <script
+      src="bootstrap/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      const toUpperCase = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      };
+
+      const destroyUser = async () => {
+        const Res = await fetch(
+          `${url.origin}/esercizi/tesina/app/api/user/destroy.php`
+        );
+        const res = await Res.json();
+        if (res.status == "success") {
+          window.location.href = "index.html";
+        } else {
+          alert(`${res.status}: ${res.message}`);
+        }
+      };
+
+      const url = new URL(window.location.href);
+      $(document).ready(async () => {
+        try {
+          const User = await fetch(
+            `${url.origin}/esercizi/tesina/app/api/user/getCurrent_signUp.php`
+          );
+          const user = await User.json();
+          console.log(user);
+          if (user.status == "success") {
+            $(".user-intestation").append(
+              `<h1>${toUpperCase(user.data.name)}</h1>`
+            );
+
+            Object.keys(user.data).forEach((key) => {
+              $(".list-group").append(
+                `<li class="list-group-item">${toUpperCase(key)}: ${
+                  key != "admin"
+                    ? user.data[key]
+                    : user.data[key] == "1"
+                    ? "admin"
+                    : "user"
+                }</li>`
+              );
+            });
+          } else {
+            console.log(`${user.status}: ${user.message}`);
+          }
+        } catch (err) {
+          console.log("err: ", err);
+        }
+      });
+    </script>
+  </body>
+</html>

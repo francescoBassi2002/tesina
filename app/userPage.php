@@ -80,6 +80,14 @@
           Log out
         </a>
       </li>
+
+      <li>
+        <a href="userInfo.html" class="nav-link">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+          You
+        </a>
+      </li>
+      
      
 
 </script>
@@ -107,9 +115,9 @@
 <script type="text/html" id="carousel-item"> <!-- carousel item -->
   <div class="carousel-item %active%">
         <img
-          src="image/%img-src%"
+          src="http://localhost/esercizi/tesina/app/image/%img-src%"
           class="d-block w-100 carousel-img"
-          alt="..."
+          alt="http://localhost/esercizi/tesina/app/image/%img-src%"
         />
         <div class="carousel-caption d-none d-md-block">
           <h5>%Title%</h5>

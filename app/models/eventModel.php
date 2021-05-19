@@ -10,7 +10,7 @@
         }
 
         public function getBadSuccess(){
-            return $this->db->query("SELECT E.* FROM events E WHERE (SELECT COUNT(*) FROM tickets T, events E WHERE T.id_e = E.id AND E.date - T.date <= 5) <= E.tot_tickets / 2")->FetchAll();
+            return $this->db->query("SELECT E.* FROM events E WHERE (SELECT COUNT(*) FROM tickets T, events E WHERE T.id_e = E.id AND E.date - T.date > 5) <= E.tot_tickets / 2")->FetchAll();
         }
         public function discount($title, $percent){
             $this->queryCount +=1;
@@ -164,6 +164,66 @@
 
         }
 
+        public function es1(){
+            $this->queryCount += 1;
+
+            $res = $this->db->query(     
+                "SELECT 
+                    COUNT(*) AS 'next_month_tickets', E.title
+                FROM EVENTS
+                        E,
+                        tickets T
+                WHERE
+                        E.id = T.id_e AND MONTH(E.date) = MONTH(CURRENT_DATE) + 1
+                GROUP BY
+                        E.title
+                ORDER BY
+                        next_month_tickets
+                DESC
+                LIMIT 1
+                ")->FetchOne();
+            return $res;
+
+
+        }
+
+        public function es2(){
+            $this->queryCount += 1;
+
+            $res = $this->db->query(     
+                "SELECT
+                        SUM(E.ticket_price) AS 'somma_rock'
+                FROM EVENTS
+                        E,
+                        genres G,
+                        tickets T
+                WHERE
+                        E.id = T.id_e AND G.id = E.id_genre AND MONTH(E.date) > MONTH(CURRENT_DATE) - 6 AND G.genre = 'rock'
+                ")->FetchOne();
+            return $res;
+        }
+
+        public function es3(){
+            $this->queryCount += 1;
+
+            $res = $this->db->query(     
+                "SELECT 
+                    COUNT(*) as 'num_eventi' , MONTH(E.date) as 'mese'
+                FROM 
+                    events E 
+                WHERE 
+                    YEAR(CURRENT_DATE) = YEAR(E.date) 
+                GROUP BY 
+                    MONTH(E.date)
+                ORDER BY 
+                    num_eventi DESC
+                LIMIT 1
+                ")->FetchOne();
+            return $res;
+        }
+
     }
 
+
+    
 ?>

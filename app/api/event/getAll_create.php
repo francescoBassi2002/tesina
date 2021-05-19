@@ -85,7 +85,7 @@
         }
 
 
-        move_uploaded_file($img["tmp_name"], $destination);
+        move_uploaded_file($img["tmp_name"], trim($destination));
 
         
         
