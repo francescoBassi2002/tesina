@@ -14,12 +14,12 @@
         $surname = $_POST["surname"];
         $email = $_POST["email"];
         $tel = ($_POST["tel"] ? $_POST["tel"] : NULL);
-        
+        $money = $_POST["money"];
 
         if ($psw == $psw2){
 
             if (!$User->exist($username)){
-                $User->signUp($username , md5($psw) , $name , $surname ,$tel, $email);
+                $User->signUp($username , md5($psw) , $name , $surname ,$tel, $email , $money);
                 echo json_encode(array("status" => "success", "message" => "registred succesfully"));
             }else{
                 echo json_encode(array("status" => "fail", "message" => "this user already exist!"));

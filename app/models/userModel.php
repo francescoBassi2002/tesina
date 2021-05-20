@@ -31,11 +31,11 @@ class Users{
 
     }
 
-    public function signUp($username , $psw , $name , $surname, $tel , $email){
+    public function signUp($username , $psw , $name , $surname, $tel , $email , $money){
         $this->queryCount +=1;
 
-        $params = [$username , $psw , $email , $name , $surname , $tel , 0];
-        $res = $this->db->query("INSERT INTO $this->table (username , psw , email , name , surname, tel, admin) VALUES (? , ? , ? , ? , ? , ? , ?)" , $params);
+        $params = [$username , $psw , $email , $name , $surname , $tel , 0 , $money];
+        $res = $this->db->query("INSERT INTO $this->table (username , psw , email , name , surname, tel, admin, aviable_balance) VALUES (? , ? , ? , ? , ? , ? , ? , ?)" , $params);
         
 
         return $res;
@@ -76,6 +76,18 @@ class Users{
     public function destroy($username){
         $this->queryCount += 1;
         $res = $this->db->query("DELETE FROM users WHERE username = ?" , [$username]);
+        return $res;
+    }
+
+    public function becomeAdmin($username){
+        $this->queryCount += 1;
+        $res = $this->db->query("UPDATE users SET admin = '1' WHERE username = ?" , [$username]);
+        return $res;
+    }
+
+    public function getAllPdf($username){
+        $this->queryCount += 1;
+        $res = $this->db->query("SELECT pdf_src FROM tickets WHERE user = ?" , [$username])->FetchAll();
         return $res;
     }
 }

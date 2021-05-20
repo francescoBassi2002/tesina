@@ -115,6 +115,16 @@ const createAdminContent = () => {
             </li>
             `);
           console.log('fine admin content');
+        } else {
+          $('#sidebar_list').append(`
+            <li class="nav-item">
+              <a href="#" class="nav-link" onclick="becomeAdmin()" data-bs-toggle="modal" data-bs-target="#becomeAdminModal">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                Became admin
+              </a>
+              
+            </li>
+            `);
         }
       } else {
         alert(`${res.status} : ${res.message}`);
@@ -193,6 +203,11 @@ $(document).ready(() => {
 
   carouselEvents();
   tableEvents();
+
+  const message = url.searchParams.get('message');
+  if (message) {
+    alert(message);
+  }
 
   createAdminContent();
 });

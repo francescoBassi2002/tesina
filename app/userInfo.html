@@ -19,18 +19,23 @@
     />
   </head>
   <body>
-    <div class="user-sheet">
-      <div class="user-intestation"></div>
-      <div class="user-info">
-        <ul class="list-group"></ul>
+    <div class="container-fluid">
+      <div class="user-sheet">
+        <div class="user-intestation"></div>
+        <div class="user-info">
+          <ul class="list-group" id="user-info-list"></ul>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary go_main"
+          onclick="destroyUser()"
+        >
+          Erase this user
+        </button>
       </div>
-      <button
-        type="button"
-        class="btn btn-primary go_main"
-        onclick="destroyUser()"
-      >
-        Erase this user
-      </button>
+      <div>
+        <ul class="list-group list-group-flush" id="list-of-pdf"></ul>
+      </div>
     </div>
 
     <script
@@ -51,7 +56,7 @@
 
       const destroyUser = async () => {
         const Res = await fetch(
-          `${url.origin}/esercizi/tesina/app/api/user/destroy.php`
+          `${url.origin}/esercizi/tesina/app/api/user/destroy_becomeAdmin.php`
         );
         const res = await Res.json();
         if (res.status == "success") {
@@ -75,7 +80,7 @@
             );
 
             Object.keys(user.data).forEach((key) => {
-              $(".list-group").append(
+              $("#user-info-list").append(
                 `<li class="list-group-item">${toUpperCase(key)}: ${
                   key != "admin"
                     ? user.data[key]
@@ -87,6 +92,21 @@
             });
           } else {
             console.log(`${user.status}: ${user.message}`);
+          }
+
+          const Pdf = await fetch(
+            `${url.origin}/esercizi/tesina/app/api/user/getAllUser.php`
+          );
+          const pdf = await Pdf.json();
+
+          if (pdf.status == "success") {
+            pdf.data.forEach((el) => {
+              $("#list-of-pdf").append(
+                `<li class="list-group-item"><a href="pdf/${el.pdf_src}.pdf">${el.pdf_src}.pdf</a></li>`
+              );
+            });
+          } else {
+            alert(`${pdf.status}: ${pdf.message}`);
           }
         } catch (err) {
           console.log("err: ", err);

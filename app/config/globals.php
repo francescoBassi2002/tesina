@@ -3,7 +3,7 @@
     $dbHost = "localhost";
     $dbUser = "root";
     $dbPsw = ""; 
-    
+    $adminPsw = "password";
     
 
 

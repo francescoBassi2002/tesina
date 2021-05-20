@@ -39,6 +39,31 @@
         }else{
             echo json_encode(array("status" => "fail" , "message" => "not logged"));
         }
+    }else if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $psw = (key_exists("psw" , $_POST) ? $_POST["psw"]: NULL );
+        if($psw){
+            session_start();
+            if (key_exists("username" , $_SESSION)){
+                if($psw == $adminPsw){
+                    $res = $User->becomeAdmin($_SESSION["username"]);
+                    if($res){
+                        header("location: ../../userPage.php?message=successful+became+admin");
+                    }else{
+                        header("location: ../../userPage.php?message=something+went+wrong");
+
+                    }
+                }else{
+                    header("location: ../../userPage.php?message=invalid+psw");
+                }
+            }else{
+                header("location: ../../userPage.php?message  =not+logged");
+            }
+
+        }else{
+            header("location: ../../userPage.php?message=psw+param+required");
+            
+
+        }
     }
     
 
