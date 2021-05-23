@@ -16,18 +16,38 @@
         $tel = ($_POST["tel"] ? $_POST["tel"] : NULL);
         $money = $_POST["money"];
 
-        if ($psw == $psw2){
 
-            if (!$User->exist($username)){
-                $User->signUp($username , md5($psw) , $name , $surname ,$tel, $email , $money);
-                echo json_encode(array("status" => "success", "message" => "registred succesfully"));
-            }else{
-                echo json_encode(array("status" => "fail", "message" => "this user already exist!"));
+        $cond = true;
 
-            }       
+        if(!$tel){
+            $cond = true;
         }else{
-            echo json_encode(array("status" => "fail", "message" => "password not equal"));
+            if(intval($tel) != 0){
+                $cond = true;
+            }else{
+                $cond = false;
+            }
         }
+        
+
+        if($cond && intval($money) !=0){
+            if ($psw == $psw2){
+
+                if (!$User->exist($username)){
+                    $User->signUp($username , md5($psw) , $name , $surname ,$tel, $email , $money);
+                    echo json_encode(array("status" => "success", "message" => "registred succesfully"));
+                }else{
+                    echo json_encode(array("status" => "fail", "message" => "this user already exist!"));
+    
+                }       
+            }else{
+                echo json_encode(array("status" => "fail", "message" => "password not equal"));
+            }
+        }else{
+            echo json_encode(array("status" => "fail", "message" => "tel and/or money param invalid"));
+
+        }
+        
    
     }else{
         

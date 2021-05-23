@@ -103,15 +103,15 @@
             $this->queryCount +=1 ;
             $id = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
 
-            $table= ($case == 0? "prefer_events" : "like_events");
+            //$table= ($case == 0? "prefer_events" : "like_events");
 
-            if($case == 1 && $this->db->query("SELECT * FROM $table WHERE id_e = ? AND username = ?" , [$id,$username])->FetchOne()){
-                $query = "DELETE FROM $table WHERE username = ? AND id_e = ?";
+            if($case == 1 && $this->db->query("SELECT * FROM prefer_events WHERE id_e = ? AND username = ?" , [$id,$username])->FetchOne()){
+                $query = "DELETE FROM prefer_events WHERE username = ? AND id_e = ? AND caso = ?";
             }else{
-                $query = "INSERT INTO $table (username , id_e) VALUES ( ? , ? )";
+                $query = "INSERT INTO prefer_events (username , id_e, caso) VALUES ( ? , ? , ?)";
             }
 
-            $res = $this->db->query($query , [$username , $id]);
+            $res = $this->db->query($query , [$username , $id, $case]);
             return $res;
 
         }
@@ -129,7 +129,7 @@
             $this->queryCount += 1;
             $id = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
 
-            return $this->db->query("SELECT * FROM like_events WHERE id_e = ? AND username = ?" , [$id,$username])->FetchOne();
+            return $this->db->query("SELECT * FROM prefer_events WHERE id_e = ? AND username = ? AND caso = 1" , [$id,$username])->FetchOne();
         }
 
         public function removeOneWishList($username , $title){
@@ -138,7 +138,7 @@
            
             $id_e = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
 
-            $res = $this->db->query("DELETE FROM prefer_events WHERE id_e= ? AND username = ?" , [$id_e,$username]);
+            $res = $this->db->query("DELETE FROM prefer_events WHERE id_e= ? AND username = ? AND caso = 0" , [$id_e,$username]);
 
             return $res;
         }

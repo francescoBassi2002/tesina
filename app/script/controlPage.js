@@ -1,3 +1,18 @@
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 const createBootstrapTable = (arrayObj, where) => {
   const keys = Object.keys(arrayObj[0]);
   //console.log(keys);
@@ -105,7 +120,9 @@ $(document).ready(async () => {
             es.data.somma_rock
           ).toFixed(2)} $</b></li>`;
         } else if (a == 2) {
-          htmlEl = `<li>Month of the year with more events: <b>${es.data.mese}</b> with <b>${es.data.num_eventi}</b> events</li>`;
+          htmlEl = `<li>Month of the year with more events: <b>${
+            months[es.data.mese - 1]
+          }</b> with <b>${es.data.num_eventi}</b> events</li>`;
         }
 
         $('.statistic-list').append(htmlEl);

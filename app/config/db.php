@@ -21,7 +21,7 @@ class db {
                 
                 $this->query->execute($params); 
                 
-                
+                    
                 $this->query_count +=1;
                 return $this;               
             }
@@ -67,7 +67,7 @@ class db {
     public function getQueryCount(){
         return $this->query_count;
     }
-
+    
     public function select($column){
         $this->queryStr = $this->queryStr."SELECT $column ";
         return $this;

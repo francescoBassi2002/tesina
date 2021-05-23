@@ -5,13 +5,13 @@
     
     $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
     $User = new Users($conn);
+    session_start();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_POST["username"])){
             $username = $_POST["username"];
 
         }else if (key_exists("username" , $_SESSION)){
-            session_start();
             $username = $_SESSION["username"];
         
         }else{
@@ -29,7 +29,6 @@
         if (!$res) {
             echo json_encode(array("status" => "fail" , "message" => "invalid credentials"));
         }else{
-            session_start();
 
             if ($res["tel"]){
                 $_SESSION["tel"] = $res["tel"];

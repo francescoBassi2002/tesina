@@ -337,3 +337,8 @@ td {
 #list-of-pdf .list-group-item a {
   text-decoration: none;
 }
+
+.table .table-body tr {
+  background-color: #252525;
+  border-radius: 20px;
+}

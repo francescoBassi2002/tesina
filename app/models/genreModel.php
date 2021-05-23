@@ -32,7 +32,19 @@ class Genre{
     public function getPreferences($username){
         $this->queryCount +=1;  
 
-        $query = "SELECT COUNT(*), G.genre FROM like_events L, events E, genres G WHERE L.id_e = E.id AND E.id_genre = G.id AND L.username = ? GROUP BY G.genre ORDER BY `COUNT(*)` DESC";
+        $query = "SELECT 
+                    COUNT(*), G.genre 
+                FROM 
+                    prefer_events P, events E, genres G 
+                WHERE 
+                    P.id_e = E.id AND 
+                    E.id_genre = G.id AND 
+                    P.casO = 1 AND
+                    P.username = ? 
+                GROUP BY 
+                    G.genre 
+                ORDER BY 
+                    `COUNT(*)` DESC";
         $res = $this->db->query($query , [$username])->FetchAll();
         return $res;
     }
