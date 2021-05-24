@@ -18,31 +18,38 @@
             die("username required");
         }
         $psw = md5($_POST["psw"]);
-        
        
-       
-        $res = $User->login($username , $psw);
-        //print_r($res);
-        
 
-        
-        if (!$res) {
-            echo json_encode(array("status" => "fail" , "message" => "invalid credentials"));
-        }else{
-
-            if ($res["tel"]){
-                $_SESSION["tel"] = $res["tel"];
-
+        if(key_exists("privacy_terms" , $_POST)){
+            $res = $User->login($username , $psw);
+            //print_r($res);
+            
+    
+            
+            if (!$res) {
+                echo json_encode(array("status" => "fail" , "message" => "invalid credentials"));
+            }else{
+    
+                if ($res["tel"]){
+                    $_SESSION["tel"] = $res["tel"];
+    
+                }
+    
+                $_SESSION["username"] = $res["username"];
+                $_SESSION["name"] = $res["name"];
+                $_SESSION["surname"] = $res["surname"];
+                $_SESSION["email"] = $res["email"];
+                $_SESSION["admin"] = ($res["admin"] == 1 ? true : false);
+                $_SESSION["psw"] = $res["psw"];
+                echo json_encode(array("status" => "success" , "message" => "ok"));
             }
+            
+        }else{
+            echo json_encode(array("status" => "fail" , "message" => "You must accept privacy terms and conditions"));
 
-            $_SESSION["username"] = $res["username"];
-            $_SESSION["name"] = $res["name"];
-            $_SESSION["surname"] = $res["surname"];
-            $_SESSION["email"] = $res["email"];
-            $_SESSION["admin"] = ($res["admin"] == 1 ? true : false);
-            $_SESSION["psw"] = $res["psw"];
-            echo json_encode(array("status" => "success" , "message" => "ok"));
         }
+       
+       
         
     }else{
         session_start();

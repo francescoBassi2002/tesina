@@ -8,12 +8,13 @@
     <title>Document</title>
     
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"crossorigin="anonymous">
+
     <link href="./style/style.css" rel="stylesheet" type='text/css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 
 </head>
-<body>
+<body id="bigImg">
 <?php 
   session_start();
   if (!isset($_SESSION["username"])){

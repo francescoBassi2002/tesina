@@ -58,38 +58,41 @@
             header("location: ../../addEvent.html?message=password+doesnt+match");
         }
 
-        $img_src = $img["name"];
-
-        
-
-        $destination = $imgFolder . $img_src;
-
-        $imageFileType = strtolower(pathinfo($destination,PATHINFO_EXTENSION));
-
-        echo $imageFileType;
-        echo "<br>";
-
-        $check = getimagesize($img["tmp_name"]);
-        if($check !== false) {
-          echo "File is an image - " . $check["mime"] . ".";
-          $uploadOk = 1;
-        } else {
-          header("location: ../../addEvent.html?message=File+is+not+an+image");
-          
-          $uploadOk = 0;
-        }
-
-
-        if (!in_array($imageFileType , $extensionAllowed)){
-            header("location: ../../addEvent.html?message=extension+not+allowed");
-        }
-
-
-        move_uploaded_file($img["tmp_name"], trim($destination));
+    
 
         
         
         if (!$Event->exist($title)){
+
+            $img_src = $img["name"];
+
+        
+
+            $destination = $imgFolder . $img_src;
+    
+            $imageFileType = strtolower(pathinfo($destination,PATHINFO_EXTENSION));
+    
+            echo $imageFileType;
+            echo "<br>";
+    
+            $check = getimagesize($img["tmp_name"]);
+            if($check !== false) {
+              echo "File is an image - " . $check["mime"] . ".";
+              $uploadOk = 1;
+            } else {
+              header("location: ../../addEvent.html?message=File+is+not+an+image");
+              
+              $uploadOk = 0;
+            }
+    
+    
+            if (!in_array($imageFileType , $extensionAllowed)){
+                header("location: ../../addEvent.html?message=extension+not+allowed");
+            }
+    
+    
+            move_uploaded_file($img["tmp_name"], trim($destination));
+
             $res = $Event->create($title , $img_src , $location , $date , $hour , $ticket_price , $artists , $genre, $type , $tot_tickets);
 
             if ($res){

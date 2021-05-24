@@ -11,13 +11,21 @@
       crossorigin="anonymous"
     />
     <link href="./style/style.css" rel="stylesheet" type="text/css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container-fluid bg-dark text-light login">
       <h1 class="text-center">Add event</h1>
-      <form id="form" enctype="multipart/form-data" action="api/event/getAll_create.php" method="POST">
+      <form
+        id="form"
+        enctype="multipart/form-data"
+        action="api/event/getAll_create.php"
+        method="POST"
+      >
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Title</label>
           <input
@@ -61,7 +69,12 @@
         <!-- ______________________________________________________________________________________-->
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">hour</label>
-          <input type="text" placeholder="hh:mm" class="form-control" name="hour" />
+          <input
+            type="text"
+            placeholder="hh:mm"
+            class="form-control"
+            name="hour"
+          />
         </div>
         <!-- ______________________________________________________________________________________-->
         <!-- ______________________________________________________________________________________-->
@@ -92,17 +105,19 @@
         <!-- ______________________________________________________________________________________-->
         <!-- ______________________________________________________________________________________-->
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Number of tickets</label>
+          <label for="exampleInputPassword1" class="form-label"
+            >Number of tickets</label
+          >
           <input type="number" class="form-control" name="tot_tickets" />
         </div>
         <!-- ______________________________________________________________________________________-->
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-          <label class="form-check-label" for="exampleCheck1"
-            >Check me out</label
-          >
+        <div class="mb-3">
+          <input
+            type="submit"
+            class="form-control btn-submit"
+            value="SIGN IN"
+          />
         </div>
-        <input type="submit" class="btn btn-primary" value="SUBMIT"></button>
       </form>
     </div>
 
@@ -110,23 +125,15 @@
       src="bootstrap/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="script/jquery.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="script/jquery.js" crossorigin="anonymous"></script>
     <script>
-      
       const url = new URL(window.location.href);
       const form = document.getElementById("form");
 
-      if(url.searchParams.get('message')){
-        const message = url.searchParams.get('message');
-        alert(message)
+      if (url.searchParams.get("message")) {
+        const message = url.searchParams.get("message");
+        alert(message);
       }
-
-
-      
-    
     </script>
   </body>
 </html>
