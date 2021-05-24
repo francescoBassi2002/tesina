@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
 
                 $current_tot_tickets = $Event->getOne($title)["tot_tickets"];
 
-                if( intval($Event->getTotTcikets($title)) - (intval($Ticket->howMany_title($title)) + $count) >= 0){
+                if( intval($Event->getRemanaintTickets($title)) - $count >= 0){
 
 
                     //$Event->newTicket($title , $count);

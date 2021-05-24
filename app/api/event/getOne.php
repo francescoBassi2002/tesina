@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $title = $_GET["title"];
 
         $res = $Event->getOne($title);
+        $res["remain_tickets"] = $Event->getRemanaintTickets($title);
         if($res){
             echo json_encode(array("status"=>"success" , "data"=>$res));
     

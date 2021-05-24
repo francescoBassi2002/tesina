@@ -58,7 +58,7 @@ class Ticket{
             $body = str_replace("%tot_price%" , $cost , $body);
             $body = str_replace("%date%" , $info["date"] , $body);
 
-            $receipt = preparePdf($pdfName . ".pdf" , $body);
+            $receipt = preparePdf($pdfName . ".pdf" , $body, $username);
 
             //TODO: SISTEMARE IL FATTO CHE LI SALVA NEL POSTO SBAGLIATO
 
@@ -97,6 +97,13 @@ class Ticket{
 
         return $res;
     }
+
+    public function deleteFromUser($user){
+        $this->query_count +=1;
+        $res = $this->db->query("DELETE FROM tickets WHERE user = ?" , [$user]);
+        return $res;
+    }
+
 
 }
 

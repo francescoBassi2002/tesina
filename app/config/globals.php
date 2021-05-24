@@ -17,7 +17,7 @@
 
     //Load Composer's autoloader
 
-    function preparePdf($fileName , $html){
+    function preparePdf($fileName , $html, $username){
         
 
         $domPdf = new Dompdf();
@@ -32,7 +32,7 @@
         $file = $domPdf->output();
         
         
-        $fp = fopen("../../pdf/$fileName" , "a");
+        $fp = fopen("../../pdf/". md5($username). "/" .$fileName , "a");
 
         fwrite($fp , $file);
         fclose($fp);
@@ -41,7 +41,7 @@
 
 
 
-        return "../../pdf/$fileName";
+        return "../../pdf/". md5($username). "/" .$fileName;
     }
 
 

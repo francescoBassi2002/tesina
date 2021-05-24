@@ -222,6 +222,17 @@
             return $res;
         }
 
+        public function getRemanaintTickets($title){
+            $res = $this->db->query("SELECT E.tot_tickets - 
+                (
+                    SELECT COUNT(*) FROM tickets T, events E WHERE T.id_e = E.id AND E.title = ?
+                ) as 'remain_tickets'
+                
+                FROM events E WHERE E.title = ? " , [$title, $title])->FetchOne()["remain_tickets"];
+
+            return $res;
+        }
+
     }
 
 

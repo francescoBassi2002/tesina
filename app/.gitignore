@@ -1,3 +1,4 @@
 /bootstrap
 /config/vendor
 /config/dompdf
+/script/node_modules

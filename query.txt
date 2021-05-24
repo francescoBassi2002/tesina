@@ -48,3 +48,12 @@ SELECT E.title FROM events E WHERE (SELECT COUNT(*) FROM tickets T, events E WHE
 	ORDER BY 
 		num_eventi DESC
 	LIMIT 1
+
+
+BIGLIETTI RIMANENTI
+SELECT E.tot_tickets - 
+	(
+    	SELECT COUNT(*) FROM tickets T, events E WHERE T.id_e = E.id AND E.title = "gratest"
+    ) as "remain_tickets"
+	
+FROM events E WHERE E.title = "gratest"

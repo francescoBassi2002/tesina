@@ -35,6 +35,7 @@
 
                 if (!$User->exist($username)){
                     $User->signUp($username , md5($psw) , $name , $surname ,$tel, $email , $money);
+                    mkdir("../../pdf/".md5($username));
                     echo json_encode(array("status" => "success", "message" => "registred succesfully"));
                 }else{
                     echo json_encode(array("status" => "fail", "message" => "this user already exist!"));
