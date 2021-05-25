@@ -140,6 +140,12 @@ h1 {
   width: 100%;
   border-radius: 10px;
 }
+.carousel:hover .carousel-img {
+  opacity: 5;
+  filter: none;
+
+  -webkit-filter: none;
+}
 
 .login {
   margin-top: 30px;
@@ -185,12 +191,20 @@ td {
 }
 
 .event-sheet {
-  position: absolute;
-  height: 75%;
+  position: relative;
+  height: auto;
   width: 50%;
   left: 25%;
   top: 25%;
   border-radius: 10px;
+}
+#mapid {
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 700px;
 }
 
 .addWishList {

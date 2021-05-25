@@ -13,6 +13,42 @@ const jsUcfirst = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+const createMap = async (lat, lng, title, place) => {
+  var map = L.map('mapid').setView([lat, lng], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup(`<b>${title}</b>\n${place}`)
+    .openPopup();
+};
+const createEventSheet = (event) => {
+  delete event.id_type;
+  delete event.id_genre;
+  delete event.id;
+  delete event.discounted;
+  delete event.tot_tickets;
+  delete event.place_id;
+  delete event.lat;
+  delete event.lng;
+
+  console.log(event);
+
+  for (key of Object.keys(event)) {
+    if (key != 'img_src') {
+      $('#caratteristics').append(
+        `<li class="list-group-item bg-transparent text-light">${jsUcfirst(
+          key
+        )}: ${event[key]}</li>`
+      );
+    }
+  }
+  $('.sheet-description').append(img.replace('%img_src%', event.img_src));
+};
+
 $(document).ready(() => {
   fetch(
     `${url.origin}/esercizi/tesina/app/api/event/addWishLikeList_exist.php?title=${eventTitle}`
@@ -38,25 +74,9 @@ $(document).ready(() => {
     .then((res) => {
       if (res.status == 'success') {
         console.log(res.data);
-        delete res.data.id_type;
-        delete res.data.id_genre;
-        delete res.data.id;
-        delete res.data.discounted;
-        delete res.data.tot_tickets;
-        console.log(res.data);
+        createMap(res.data.lat, res.data.lng, res.data.title, res.data.place);
 
-        for (key of Object.keys(res.data)) {
-          if (key != 'img_src') {
-            $('#caratteristics').append(
-              `<li class="list-group-item bg-transparent text-light">${jsUcfirst(
-                key
-              )}: ${res.data[key]}</li>`
-            );
-          }
-        }
-        $('.sheet-description').append(
-          img.replace('%img_src%', res.data.img_src)
-        );
+        createEventSheet(res.data);
       } else {
         console.log(res.message);
       }

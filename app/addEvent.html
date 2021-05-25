@@ -57,7 +57,7 @@
         <!-- ______________________________________________________________________________________-->
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">location</label>
-          <input type="text" class="form-control" name="location" />
+          <select class="form-select" id="places" name="id_place"></select>
         </div>
         <!-- ______________________________________________________________________________________-->
         <!-- ______________________________________________________________________________________-->
@@ -70,7 +70,7 @@
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">hour</label>
           <input
-            type="text"
+            type="time"
             placeholder="hh:mm"
             class="form-control"
             name="hour"
@@ -94,13 +94,13 @@
         <!-- ______________________________________________________________________________________-->
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Genre</label>
-          <input type="text" class="form-control" name="genre" />
+          <select class="form-select" id="genres" name="genre"></select>
         </div>
         <!-- ______________________________________________________________________________________-->
         <!-- ______________________________________________________________________________________-->
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Type</label>
-          <input type="text" class="form-control" name="type" />
+          <select class="form-select" id="types" name="type"></select>
         </div>
         <!-- ______________________________________________________________________________________-->
         <!-- ______________________________________________________________________________________-->
@@ -134,6 +134,52 @@
         const message = url.searchParams.get("message");
         alert(message);
       }
+
+      $(document).ready(async () => {
+        const Places = await fetch(
+          `${url.origin}/esercizi/tesina/app/api/place/getAll.php`
+        );
+        const places = await Places.json();
+        console.log(places);
+
+        if (places.status == "success") {
+          places.data.forEach((el) => {
+            $("#places").append(
+              `<option value="${el.id}">${el.place} - ${el.city} - ${el.nation}</option>`
+            );
+          });
+        }
+
+        const Genres = await fetch(
+          `${url.origin}/esercizi/tesina/app/api/event/allGenre.php`
+        );
+        const res = await Genres.json();
+
+        if (res.status == "success") {
+          const genres = res.data;
+          console.log(genres);
+          genres.forEach((el) => {
+            $("#genres").append(
+              `<option value="${el.genre}">${el.genre}</option>`
+            );
+          });
+        }
+
+        const Types = await fetch(
+          `${url.origin}/esercizi/tesina/app/api/event/getAllTypes.php`
+        );
+        let types = await Types.json();
+
+        if (res.status == "success") {
+          types = types.data;
+          console.log(types);
+          types.forEach((el) => {
+            $("#types").append(
+              `<option value="${el.type}">${el.type}</option>`
+            );
+          });
+        }
+      });
     </script>
   </body>
 </html>

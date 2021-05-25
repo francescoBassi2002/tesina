@@ -28,22 +28,24 @@
 
         echo json_encode($res);
     }else{
-        $imgFolder = "../../image/ ";
+        $imgFolder = "../../image/";
         print_r($_POST);
         $title = $_POST["title"];
         $img = $_FILES["img_src"];
-        $location = $_POST["location"];
         $date = $_POST["date"];
         $hour = $_POST["hour"];
         $ticket_price = $_POST["ticket_price"];
         $artists = $_POST["artists"];
         $genre = $_POST["genre"];
         $type = $_POST["type"];
+        $id_place = $_POST["id_place"];
         $psw = $_POST["psw"];
         $tot_tickets = $_POST["tot_tickets"];
         session_start();
+        echo $id_place;
+        /*
         echo $_SESSION["username"] . "<br>";
-        echo $psw . "<br>";
+        echo $psw . "<br>";*/
         $res = $User->logIn($_SESSION["username"] ,md5($psw) );
 
 
@@ -71,13 +73,13 @@
             $destination = $imgFolder . $img_src;
     
             $imageFileType = strtolower(pathinfo($destination,PATHINFO_EXTENSION));
-    
+    /*
             echo $imageFileType;
-            echo "<br>";
+            echo "<br>";*/
     
             $check = getimagesize($img["tmp_name"]);
             if($check !== false) {
-              echo "File is an image - " . $check["mime"] . ".";
+              //echo "File is an image - " . $check["mime"] . ".";
               $uploadOk = 1;
             } else {
               header("location: ../../addEvent.html?message=File+is+not+an+image");
@@ -93,7 +95,7 @@
     
             move_uploaded_file($img["tmp_name"], trim($destination));
 
-            $res = $Event->create($title , $img_src , $location , $date , $hour , $ticket_price , $artists , $genre, $type , $tot_tickets);
+            $res = $Event->create($title , $img_src , $date , $hour , $ticket_price , $artists , $genre, $type , $tot_tickets, $id_place);
 
             if ($res){
                 $output = array("status" => "success" , "message" => "ok");
@@ -105,8 +107,8 @@
             $output = array("status" => "fail" , "message" => "this event already exist") ;
             
         }
-        header("location: ../../addEvent.html?message=" . $output["status"] . ":+" . $output["message"]);
-        //echo json_encode($output);
+        //header("location: ../../addEvent.html?message=" . $output["status"] . ":+" . $output["message"]);
+        echo json_encode($output);
 
     }
     

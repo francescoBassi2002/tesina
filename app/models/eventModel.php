@@ -36,7 +36,7 @@
                     }
             }else{
                 if ($genrefilter && $typefilter){
-                    $res = $this->db->query("SELECT * FROM $this->table E, genres G, types T WHERE G.id = E.id_genre AND T.id = E.id_type AND G.genre = ? AND T.type = ?" , [$genrefilter , $typefilter])->FetchAll();
+                    $res = $this->db->query("SELECT E.*, P.place, P.city, P.nation, P.lat, P.lng FROM $this->table E, genres G, types T, places P WHERE E.place_id = P.id AND G.id = E.id_genre AND T.id = E.id_type AND G.genre = ? AND T.type = ?" , [$genrefilter , $typefilter])->FetchAll();
                     if (!$res){
                         $res = "Error";
                     }
@@ -47,12 +47,12 @@
                             $filter = ($genrefilter == NULL ? $typefilter : $genrefilter);
                             $queryFilter = ($genrefilter == NULL ? "T.type = ?" : "G.genre = ?");
         
-                            $res = $this->db->query("SELECT * FROM $this->table E, genres G, types T WHERE G.id = E.id_genre AND T.id = E.id_type AND $queryFilter" , [$filter])->FetchAll();
+                            $res = $this->db->query("SELECT E.*, P.place, P.city, P.nation, P.lat, P.lng FROM $this->table E, genres G, types T, places P WHERE E.place_id = P.id AND G.id = E.id_genre AND T.id = E.id_type AND $queryFilter" , [$filter])->FetchAll();
                             if (!$res){
                                 $res = "Error";
                             }
                         }else{
-                            $res = $this->db->query("SELECT * FROM $this->table E, genres G, types T WHERE G.id = E.id_genre AND T.id = E.id_type")->FetchAll();
+                            $res = $this->db->query("SELECT E.*, P.place, P.city, P.nation, P.lat, P.lng FROM $this->table E, genres G, types T, places P WHERE E.place_id = P.id AND G.id = E.id_genre AND T.id = E.id_type")->FetchAll();
                             if (!$res){
                                 $res = "Error";
                             }
@@ -72,7 +72,7 @@
             return ($res ? true : false );
         }
 
-        public function create($title , $img_src , $location , $date , $hour , $ticket_price , $artists , $genre, $type, $tot_tickets){
+        public function create($title , $img_src, $date , $hour , $ticket_price , $artists , $genre, $type, $tot_tickets, $id_place){
             
             $this->queryCount +=1;
             
@@ -80,21 +80,29 @@
             $id_genre = $this->db->query("SELECT id FROM genres WHERE genre = ?" , [$genre])->FetchOne()["id"];
             $id_type = $this->db->query("SELECT id FROM types WHERE type = ?" , [$type])->FetchOne()["id"];
 
-            $params = [$title ,$id_type , $id_genre , $img_src , $location , $date , $hour , $ticket_price , $artists , $tot_tickets];
+            $params = [$title ,$id_type , $id_genre , $img_src , $date , $hour , $ticket_price , $artists , $tot_tickets, $id_place];
 
             //print_r($params);
             
-            $res = $this->db->query("INSERT INTO $this->table (title , id_type , id_genre ,img_src , location , date , hour , ticket_price , artists, tot_tickets, discounted) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ?, 0)" , $params );
+            $res = $this->db->query("INSERT INTO $this->table (title , id_type , id_genre ,img_src , date , hour , ticket_price , artists, tot_tickets, discounted, place_id) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , 0, ?)" , $params );
 
             
             return $res;
 
         }
 
+        public function getAllType(){
+            $this->queryCount +=1;
+
+            $res = $this->db->query("SELECT * FROM types")->FetchAll();
+
+            return $res;
+        }
+
         public function getOne($title){
             $this->queryCount +=1;
 
-            $res = $this->db->query("SELECT * FROM $this->table WHERE title = ?" , [$title])->FetchOne();
+            $res = $this->db->query("SELECT * FROM $this->table E, places P WHERE P.id = E.place_id AND title = ?" , [$title])->FetchOne();
 
             return $res;
         }

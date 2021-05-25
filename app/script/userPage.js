@@ -24,6 +24,9 @@ const createBootstrapTable = (arrayObj, where) => {
     delete el['id_genre'];
     delete el['img_src'];
     delete el['tot_tickets'];
+    delete el['place_id'];
+    delete el['lng'];
+    delete el['lat'];
 
     el.ticket_price += ' $';
   });
@@ -137,6 +140,7 @@ const tableEvents = () => {
   fetch(`${url.origin}/esercizi/tesina/app/api/event/getAll_create.php`)
     .then((res) => res.json())
     .then((res) => {
+      console.log(res);
       createBootstrapTable(res, $('.main-content'));
     })
     .catch((err) => console.log);
