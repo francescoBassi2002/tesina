@@ -192,3 +192,18 @@ $('#btn-discount').click(async () => {
   alert(`${res.status}: ${res.message}`);
   location.reload();
 });
+
+fetch(`${url.origin}/esercizi/tesina/app/api/ticket/howMany.php?title=${title}`)
+  .then((Res) => Res.json())
+  .then((res) => {
+    if (res.status == 'success') {
+      res.data.forEach((el, idx) => {
+        el['label'] = el.date;
+        delete el.date;
+        el['y'] = parseInt(el['COUNT(*)']);
+        delete el['COUNT(*)'];
+      });
+      console.log(res.data);
+      dataPoints = res.data;
+    }
+  });

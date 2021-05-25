@@ -15,10 +15,13 @@ const jsUcfirst = (string) => {
 
 const createMap = async (lat, lng, title, place) => {
   var map = L.map('mapid').setView([lat, lng], 13);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' /*, {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
+  }*/
+  ).addTo(map);
 
   L.marker([lat, lng])
     .addTo(map)
@@ -51,7 +54,7 @@ const createEventSheet = (event) => {
 
 $(document).ready(() => {
   fetch(
-    `${url.origin}/esercizi/tesina/app/api/event/addWishLikeList_exist.php?title=${eventTitle}`
+    `${url.origin}/esercizi/tesina/app/api/prefer_events/addWishLikeList_exist.php?title=${eventTitle}`
   )
     .then((res) => res.json())
     .then((res) => {
@@ -111,7 +114,7 @@ const addWishList = async (num) => {
   }
 
   const Res = await fetch(
-    `${url.origin}/esercizi/tesina/app/api/event/addWishLikeList_exist.php?title=${eventTitle}&case=${num}`
+    `${url.origin}/esercizi/tesina/app/api/prefer_events/addWishLikeList_exist.php?title=${eventTitle}&case=${num}`
   );
   const res = await Res.json();
   if (num != 1) {

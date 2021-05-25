@@ -150,7 +150,7 @@ const tableEvents = () => {
 
 const carouselEvents = async () => {
   const Pref = await fetch(
-    `${url.origin}/esercizi/tesina/app/api/event/preferences.php`
+    `${url.origin}/esercizi/tesina/app/api/genre/preferences.php`
   );
   const pref = await Pref.json();
   let Res = null;
@@ -220,7 +220,9 @@ whish_list = () => {
   $('#sidebar_list').empty();
   $('#sidebar_list').append('<h4>Lista desideri</h4>');
 
-  fetch(`${url.origin}/esercizi/tesina/app/api/event/getAllWishList.php `)
+  fetch(
+    `${url.origin}/esercizi/tesina/app/api/prefer_events/getAllWishList.php `
+  )
     .then((res) => res.json())
     .then((res) => {
       if (res.status == 'success') {
@@ -248,7 +250,7 @@ const remove = (title, idx) => {
   console.log(document.getElementById(`idx-${idx}`));
 
   fetch(
-    `${url.origin}/esercizi/tesina/app/api/event/deleteOneWishList.php?title=${title}`
+    `${url.origin}/esercizi/tesina/app/api/prefer_events/deleteOneWishList.php?title=${title}`
   )
     .then((res) => res.json())
     .then((res) => {

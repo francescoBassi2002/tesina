@@ -151,7 +151,7 @@
         }
 
         const Genres = await fetch(
-          `${url.origin}/esercizi/tesina/app/api/event/allGenre.php`
+          `${url.origin}/esercizi/tesina/app/api/genre/allGenre.php`
         );
         const res = await Genres.json();
 
@@ -166,7 +166,7 @@
         }
 
         const Types = await fetch(
-          `${url.origin}/esercizi/tesina/app/api/event/getAllTypes.php`
+          `${url.origin}/esercizi/tesina/app/api/type/getAllTypes.php`
         );
         let types = await Types.json();
 
