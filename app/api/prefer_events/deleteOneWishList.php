@@ -1,11 +1,11 @@
 
 <?php
-require "../../models/eventModel.php";
+require "../../models/prefEModel.php";
 require "../../config/globals.php";
 require "../../config/db.php";
 
 $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
-$Event = new Event($conn);
+$PrefEv = new PreferEvents($conn);
 
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
    
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $title = $_GET["title"];
         if($_SESSION && key_exists("username" , $_SESSION)){
             
-            $res = $Event->removeOneWishList($_SESSION["username"] , $title);
+            $res = $PrefEv->removeOneWishList($_SESSION["username"] , $title);
     
             if($res){
                 echo json_encode(array("status" => "success" , "message"=>"element deleted"));    
