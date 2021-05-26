@@ -107,8 +107,8 @@
             $output = array("status" => "fail" , "message" => "this event already exist") ;
             
         }
-        //header("location: ../../addEvent.html?message=" . $output["status"] . ":+" . $output["message"]);
-        echo json_encode($output);
+        header("location: ../../addEvent.html?message=" . $output["status"] . ":+" . $output["message"]);
+        //echo json_encode($output);
 
     }
     
