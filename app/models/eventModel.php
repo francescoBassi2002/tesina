@@ -91,13 +91,7 @@
 
         }
 
-        public function getAllType(){
-            $this->queryCount +=1;
-
-            $res = $this->db->query("SELECT * FROM types")->FetchAll();
-
-            return $res;
-        }
+        
 
         public function getOne($title){
             $this->queryCount +=1;
@@ -120,7 +114,7 @@
 
         }
 
-        public function getTotTcikets($title){
+        public function getTotTickets($title){
             $this->queryCount += 1;
 
             $res = $this->db->query("SELECT tot_tickets FROM events WHERE title = ?" , [$title])->FetchOne()["tot_tickets"];
