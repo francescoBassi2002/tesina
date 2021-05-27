@@ -170,7 +170,7 @@
 </div>
 
 </script>
-<script src="script/jquery.js"  crossorigin="anonymous"></script>
+<script src="script/jquery/jquery.js"  crossorigin="anonymous"></script>
 <script src="bootstrap/js/bootstrap.bundle.js" crossorigin="anonymous"></script>
 
 

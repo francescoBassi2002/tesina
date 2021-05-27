@@ -2,4 +2,4 @@
 /config/vendor
 /config/dompdf
 /script/node_modules
-/script/jquery.js
+/script/jquery
