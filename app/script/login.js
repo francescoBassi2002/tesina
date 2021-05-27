@@ -1,5 +1,5 @@
 const url = new URL(window.location.href);
-const form = document.getElementById('form');
+const form = document.getElementById('form-login');
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -22,5 +22,4 @@ form.addEventListener('submit', function (e) {
     .catch((err) => {
       console.log('error: ', err);
     });
-
 });

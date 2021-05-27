@@ -18,7 +18,7 @@
     />
   </head>
   <body>
-    <div class="container-fluid bg-dark text-light login">
+    <div class="container-fluid bg-dark text-light signUp">
       <h1 class="text-center">Add event</h1>
       <form
         id="form"
@@ -26,98 +26,114 @@
         action="api/event/getAll_create.php"
         method="POST"
       >
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="title"
-          />
+        <div class="riga">
+          <div class="colonna">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="title"
+              />
+            </div>
+            <!-- ______________________________________________________________________________________-->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                name="psw"
+              />
+            </div>
+            <!-- ______________________________________________________________________________________-->
+            <!-- ______________________________________________________________________________________-->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Img_src</label
+              >
+              <input type="file" class="form-control" name="img_src" />
+            </div>
+            <!-- ______________________________________________________________________________________-->
+
+            <!-- ______________________________________________________________________________________-->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >location</label
+              >
+              <select class="form-select" id="places" name="id_place"></select>
+            </div>
+            <!-- ______________________________________________________________________________________-->
+            <!-- ______________________________________________________________________________________-->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">date</label>
+              <input type="date" class="form-control" name="date" />
+            </div>
+            <!-- ______________________________________________________________________________________-->
+            <!-- ______________________________________________________________________________________-->
+          </div>
+          <div class="colonna">
+            <!-- ______________________________________________________________________________________-->
+            <!-- ______________________________________________________________________________________-->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >ticket_price</label
+              >
+              <input type="text" class="form-control" name="ticket_price" />
+            </div>
+            <!-- ______________________________________________________________________________________-->
+            <!-- ______________________________________________________________________________________-->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Artists</label
+              >
+              <input type="text" class="form-control" name="artists" />
+            </div>
+            <!-- ______________________________________________________________________________________-->
+            <!-- ______________________________________________________________________________________-->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Genre</label
+              >
+              <select class="form-select" id="genres" name="genre"></select>
+            </div>
+            <!-- ______________________________________________________________________________________-->
+            <!-- ______________________________________________________________________________________-->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Type</label>
+              <select class="form-select" id="types" name="type"></select>
+            </div>
+            <!-- ______________________________________________________________________________________-->
+            <!-- ______________________________________________________________________________________-->
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Number of tickets</label
+              >
+              <input type="number" class="form-control" name="tot_tickets" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">hour</label>
+              <input
+                type="time"
+                placeholder="hh:mm"
+                class="form-control"
+                name="hour"
+              />
+            </div>
+          </div>
         </div>
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            name="psw"
-          />
-        </div>
-        <!-- ______________________________________________________________________________________-->
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Img_src</label>
-          <input type="file" class="form-control" name="img_src" />
-        </div>
-        <!-- ______________________________________________________________________________________-->
 
         <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">location</label>
-          <select class="form-select" id="places" name="id_place"></select>
-        </div>
-        <!-- ______________________________________________________________________________________-->
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">date</label>
-          <input type="date" class="form-control" name="date" />
-        </div>
-        <!-- ______________________________________________________________________________________-->
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">hour</label>
-          <input
-            type="time"
-            placeholder="hh:mm"
-            class="form-control"
-            name="hour"
-          />
-        </div>
-        <!-- ______________________________________________________________________________________-->
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label"
-            >ticket_price</label
-          >
-          <input type="text" class="form-control" name="ticket_price" />
-        </div>
-        <!-- ______________________________________________________________________________________-->
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Artists</label>
-          <input type="text" class="form-control" name="artists" />
-        </div>
-        <!-- ______________________________________________________________________________________-->
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Genre</label>
-          <select class="form-select" id="genres" name="genre"></select>
-        </div>
-        <!-- ______________________________________________________________________________________-->
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Type</label>
-          <select class="form-select" id="types" name="type"></select>
-        </div>
-        <!-- ______________________________________________________________________________________-->
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label"
-            >Number of tickets</label
-          >
-          <input type="number" class="form-control" name="tot_tickets" />
-        </div>
-        <!-- ______________________________________________________________________________________-->
-        <div class="mb-3">
-          <input
-            type="submit"
-            class="form-control btn-submit"
-            value="SIGN IN"
-          />
-        </div>
+
+        <input
+          type="submit"
+          class="form-control btn-submit"
+          value="ADD EVENT"
+        />
       </form>
     </div>
 

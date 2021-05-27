@@ -150,7 +150,7 @@ h1 {
 .login {
   margin-top: 30px;
   border-radius: 8px;
-  width: 50%;
+  width: auto;
   padding-bottom: 10px;
 }
 .btn-primary {
@@ -280,7 +280,16 @@ td {
   color: #000000;
 }
 .login {
-  width: 450px;
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 175px;
+  background-color: #252525;
+  padding-top: 40px;
+}
+
+.signUp {
+  width: 900px;
   margin-right: auto;
   margin-left: auto;
   margin-top: 175px;
@@ -292,6 +301,20 @@ td {
   margin-left: 50px;
   margin-right: 50px;
   margin-top: 60px;
+  width: auto;
+}
+
+.riga {
+  display: flex;
+  width: auto;
+  align-content: space-around;
+}
+
+.colonna {
+  display: block;
+  margin: 10px 10px 10px 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #form input {
@@ -305,8 +328,10 @@ td {
 #form .check {
   width: 15px;
   height: 15px;
-  margin-left: 30px;
+  margin-left: 40px;
   margin-top: 7px;
+  margin-right: 6px;
+  margin-bottom: 10px;
 }
 
 #label-check {
@@ -317,6 +342,7 @@ td {
   background-color: var(--secondary);
   border-color: var(--secondary);
   color: white;
+  margin-bottom: 10px;
 }
 
 .btn-submit:hover {
@@ -452,4 +478,81 @@ td {
 .table .table-body tr {
   background-color: transparent;
   border-radius: 20px;
+}
+
+.box {
+  position: relative;
+
+  background-color: white;
+  border-radius: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 100px;
+  padding-top: 30px;
+}
+
+.box-login {
+  width: 350px;
+  height: 400px;
+}
+
+.box-signup {
+  width: 500px;
+
+  height: 550px;
+}
+
+.signup {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  left: 0;
+  top: 20px;
+  padding: 0px 20px;
+}
+
+.signIn {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  left: 0;
+  top: 20px;
+
+  padding: 0px 20px;
+}
+
+.form1 {
+  margin-top: 150px;
+}
+.form1 > * {
+  width: 100%;
+}
+
+.switch-control {
+  display: flex;
+
+  margin-top: 20px;
+}
+
+.btn-toggle {
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  background-color: transparent;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.637);
+  font-size: x-large;
+}
+
+.btn-toggle:hover {
+  text-decoration: underline var(--secondary-light);
+  color: white;
+}
+
+.hide {
+  display: none;
+}
+
+.underlined {
+  text-decoration: underline var(--secondary);
 }

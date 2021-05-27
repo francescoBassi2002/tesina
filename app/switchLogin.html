@@ -19,25 +19,22 @@
       rel="stylesheet"
     />
   </head>
-  <body id="bigImg">
-    <div class="box box-login bg-dark">
+  <body>
+    <div class="box">
       <div class="switch-control">
-        <button type="button" class="btn-toggle btn-to-login underlined">
-          Login
-        </button>
-        <button type="button" class="btn-toggle btn-to-signup">Sign Up</button>
+        <button class="btn-toggle btn-to-login">Login</button>
+        <button class="btn-toggle btn-to-signup">Sign Up</button>
       </div>
-      <hr
-        style="color: white; width: 90%; margin-left: auto; margin-right: auto"
-      />
+
       <div class="signup hide">
-        <form class="form1" id="form-signup">
+        <form class="form1" id="form-login">
           <div class="riga">
             <div class="colonna">
               <div class="mb-3">
                 <input
                   type="text"
                   class="form-control"
+                  id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   name="username"
                   placeholder="username"
@@ -47,6 +44,7 @@
                 <input
                   type="password"
                   class="form-control"
+                  id="exampleInputPassword1"
                   name="psw"
                   placeholder="•••••••"
                 />
@@ -56,8 +54,9 @@
                 <input
                   type="password"
                   class="form-control"
+                  id="exampleInputEmail1"
                   name="psw2"
-                  placeholder="repeat password"
+                  placeholder="•••••••"
                 />
               </div>
 
@@ -65,6 +64,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   name="name"
                   placeholder="name"
@@ -77,6 +77,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   name="surname"
                   placeholder="surname"
@@ -87,6 +88,7 @@
                 <input
                   type="email"
                   class="form-control"
+                  id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   name="email"
                   placeholder="email"
@@ -97,6 +99,7 @@
                 <input
                   type="tel"
                   class="form-control"
+                  id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   name="tel"
                   placeholder="tel"
@@ -107,6 +110,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   name="money"
                   placeholder="your balance"
@@ -118,6 +122,7 @@
             <input
               type="checkbox"
               class="check"
+              id="check"
               value="privacy"
               required="true"
               name="privacy_terms"
@@ -139,7 +144,7 @@
       </div>
 
       <div class="signIn">
-        <form class="form1" id="form-login">
+        <form class="form1" id="signup">
           <div class="mb-3">
             <input
               type="text"
@@ -163,6 +168,7 @@
             <input
               type="checkbox"
               class="check"
+              id="check"
               value="privacy"
               name="privacy_terms"
             /><label for="check" id="label-check"
@@ -193,43 +199,39 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
-
-    <script src="script/login.js"></script>
-    <script src="script/sign_up.js"></script>
     <script>
-      const elemento = document
-        .querySelectorAll(".btn-toggle")
-        .forEach((el) => {
-          el.addEventListener("click", (e) => {
-            if (el.classList.contains("btn-to-login")) {
-              document
-                .querySelector(".btn-to-login")
-                .classList.add("underlined");
-              document
-                .querySelector(".btn-to-signup")
-                .classList.remove("underlined");
+      $(".btn-toggle").click(() => {
+        const classname = $(this).attr("class");
+        console.log(classname);
 
-              document.querySelector(".signIn").classList.remove("hide");
-              document.querySelector(".signup").classList.add("hide");
+        const elemento = document
+          .querySelectorAll(".btn-toggle")
+          .forEach((el) => {
+            el.addEventListener("click", (e) => {
+              if (el.classList.contains("btn-to-login")) {
+                document
+                  .querySelector(".btn-to-login")
+                  .classList.add("underlined");
+                document
+                  .querySelector(".btn-to-signup")
+                  .classList.remove("underlined");
 
-              document.querySelector(".box").classList.add("box-login");
-              document.querySelector(".box").classList.remove("box-signup");
-            } else {
-              document
-                .querySelector(".btn-to-signup")
-                .classList.add("underlined");
-              document
-                .querySelector(".btn-to-login")
-                .classList.remove("underlined");
+                document.querySelector(".signIn").classList.remove("hide");
+                document.querySelector(".signup").classList.add("hide");
+              } else {
+                document
+                  .querySelector(".btn-to-signup")
+                  .classList.add("underlined");
+                document
+                  .querySelector(".btn-to-login")
+                  .classList.remove("underlined");
 
-              document.querySelector(".signup").classList.remove("hide");
-              document.querySelector(".signIn").classList.add("hide");
-
-              document.querySelector(".box").classList.add("box-signup");
-              document.querySelector(".box").classList.remove("box-login");
-            }
+                document.querySelector(".signup").classList.remove("hide");
+                document.querySelector(".signIn").classList.add("hide");
+              }
+            });
           });
-        });
+      });
     </script>
   </body>
 </html>

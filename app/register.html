@@ -19,98 +19,107 @@
     />
   </head>
   <body>
-    <div class="container-fluid bg-dark text-light login">
+    <div class="container-fluid bg-dark text-light signUp">
       <h1 class="text-center">Sign Up</h1>
       <form id="form">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Username</label>
-          <input
-            type="text"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="username"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            name="psw"
-          />
-        </div>
+        <div class="riga">
+          <div class="colonna">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label"
+                >Username</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="username"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                name="psw"
+              />
+            </div>
 
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Repeat password</label
-          >
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputEmail1"
-            name="psw2"
-          />
-        </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label"
+                >Repeat password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="exampleInputEmail1"
+                name="psw2"
+              />
+            </div>
 
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="name"
-          />
-        </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="name"
+              />
+            </div>
+          </div>
 
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Surname</label>
-          <input
-            type="text"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="surname"
-          />
-        </div>
+          <div class="colonna">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Surname</label>
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="surname"
+              />
+            </div>
 
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="email"
-          />
-        </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="email"
+              />
+            </div>
 
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Tel</label>
-          <input
-            type="tel"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="tel"
-          />
-        </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Tel</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="tel"
+              />
+            </div>
 
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Your balance</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="money"
-          />
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label"
+                >Your balance</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="money"
+              />
+            </div>
+          </div>
         </div>
-
         <div class="mb-3" style="display: flex">
           <input
             type="checkbox"
@@ -120,10 +129,19 @@
             required="true"
             name="privacy_terms"
           /><label for="check" id="label-check"
-            >I accept all privacy terms an conditions</label
+            >I accept all
+            <a href="../termini-condizioni-e-privacy.pdf" class="text-info"
+              >privacy terms an conditions</a
+            ></label
           >
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+          <input
+            type="submit"
+            class="form-control btn-submit"
+            value="SIGN UP"
+          />
+        </div>
       </form>
     </div>
 

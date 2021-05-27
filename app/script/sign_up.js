@@ -1,7 +1,6 @@
-const url = new URL(window.location.href);
-const form = document.getElementById('form');
+const formS = document.getElementById('form-signup');
 
-form.addEventListener('submit', function (e) {
+formS.addEventListener('submit', function (e) {
   e.preventDefault();
   const data = new URLSearchParams(new FormData(this));
   console.log(data);
