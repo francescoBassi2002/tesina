@@ -530,18 +530,26 @@ td {
 
 .switch-control {
   display: flex;
-
   margin-top: 20px;
 }
 
 .btn-toggle {
   margin-left: auto;
   margin-right: auto;
+  float: right;
   border: none;
   background-color: transparent;
   z-index: 2;
   color: rgba(255, 255, 255, 0.637);
   font-size: x-large;
+}
+
+.btn-to-login {
+  margin-right: 15px;
+}
+
+.btn-to-signup {
+  margin-left: 15px;
 }
 
 .btn-toggle:hover {

@@ -123,6 +123,28 @@
 
         }
 
+        public function deleteOldEvents(){
+            $this->queryCount += 1;
+            $ids = $this->db->query("SELECT id FROM events WHERE date < CURRENT_DATE()")->FetchAll();
+
+            foreach ($ids as $id){
+            
+                $tables = ["prefer_events" , "tickets"];
+                foreach($tables as $table){
+                    $deltable = $this->db->query("DELETE FROM $table WHERE id_e = ?" , [$id["id"]]);
+                    if(!$deltable){
+                        break;
+                    }
+                }
+
+                $deltable = $this->db->query("DELETE FROM $this->table WHERE id = ?" , [$id["id"]]);
+
+            }
+
+
+            return $deltable;
+        }
+
         public function es1(){
             $this->queryCount += 1;
 

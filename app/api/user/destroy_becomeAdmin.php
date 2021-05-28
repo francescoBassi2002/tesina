@@ -12,17 +12,35 @@
         
         
         if (key_exists("username" , $_SESSION)){
-
-            $tables = ["like_events" , "prefer_events" , "prefer_genres" , "tickets"];
+            $user = $_SESSION["username"];
+            $tables = ["prefer_events" , "prefer_genres" , "tickets"];
             foreach($tables as $table){
-                $deltable = $conn->query("DELETE FROM $table WHERE ". ($table != "tickets" ? "username" : "user"). "=?" , [$_SESSION["username"]]);
+                $deltable = $conn->query("DELETE FROM $table WHERE ". ($table != "tickets" ? "username" : "user"). "=?" , [$user]);
                 if(!$deltable){
                     break;
                 }
             }
 
             if($deltable){
-                $res = $User->destroy($_SESSION["username"]);
+                $res = $User->destroy($user);
+
+                $fileList = scandir("../../pdf/" . md5($user));
+
+                /*
+                    filelist {
+                        [0] -> ".",
+                        [1] -> "..",
+                        [2] -> "esempio",
+                        [...]
+                    }
+        
+                */
+        
+                for ($a = 2; $a<count($fileList) ;$a ++ ){
+                    unlink("../../pdf/". md5($user) . "/" . $fileList[$a]);
+                }
+                rmdir("../../pdf/". md5($user));
+
                 if($res){
                     echo json_encode(array("status" => "success", "message" => "ok"));
     
