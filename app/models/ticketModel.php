@@ -1,6 +1,6 @@
  <?php
-
 class Ticket{
+
     private $db;
     private $query_count;
     private $table = 'tickets';
@@ -11,6 +11,8 @@ class Ticket{
     }
 
     public function add($username, $title, $count){
+        
+        $mailPsw = "ciaociao1!";
         $Event = new Event($this->db);
         $not_error = true;
         $this->query_count += 1;
@@ -60,9 +62,7 @@ class Ticket{
 
             $receipt = preparePdf($pdfName . ".pdf" , $body, $username);
 
-            //TODO: SISTEMARE IL FATTO CHE LI SALVA NEL POSTO SBAGLIATO
-
-            $email_val = sendMail("tesina.bassi@gmail.com" , "ciaociao1!" , $_SESSION["email"] , "Payment receipt" , "no-reply" , $receipt);
+            $email_val = sendMail("tesina.bassi@gmail.com" , $mailPsw , $_SESSION["email"] , "Payment receipt" , "no-reply" , $receipt);
 
             if (!$res || !$email_val){
                 $not_error = false;

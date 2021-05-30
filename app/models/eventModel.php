@@ -12,6 +12,7 @@
         public function getBadSuccess(){
             return $this->db->query("SELECT E.* FROM events E WHERE (SELECT COUNT(*) FROM tickets T, events E WHERE T.id_e = E.id AND E.date - T.date > 5) <= E.tot_tickets / 2")->FetchAll();
         }
+        
         public function discount($title, $percent){
             $this->queryCount +=1;
             $res = $this->db->query("UPDATE events SET ticket_price = ticket_price - (ticket_price / 100 * ?) WHERE title = ?" , [$percent , $title]);
@@ -126,7 +127,7 @@
         public function deleteOldEvents(){
             $this->queryCount += 1;
             $ids = $this->db->query("SELECT id FROM events WHERE date < CURRENT_DATE()")->FetchAll();
-
+            $deltable = null;  
             foreach ($ids as $id){
             
                 $tables = ["prefer_events" , "tickets"];

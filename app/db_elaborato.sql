@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 23, 2021 alle 17:40
+-- Creato il: Mag 30, 2021 alle 13:15
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.3
 
@@ -32,25 +32,25 @@ CREATE TABLE `events` (
   `title` varchar(20) NOT NULL,
   `id_type` int(1) NOT NULL COMMENT '->tabella dei tipi',
   `id_genre` int(1) NOT NULL COMMENT '->tabella dei generi',
-  `img_src` varchar(25) NOT NULL,
-  `location` varchar(20) NOT NULL,
+  `img_src` varchar(255) NOT NULL,
   `date` date NOT NULL,
   `hour` char(5) NOT NULL,
   `ticket_price` float NOT NULL,
   `artists` varchar(50) NOT NULL,
   `tot_tickets` int(11) NOT NULL,
-  `discounted` int(1) NOT NULL
+  `discounted` int(1) NOT NULL,
+  `place_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `events`
 --
 
-INSERT INTO `events` (`id`, `title`, `id_type`, `id_genre`, `img_src`, `location`, `date`, `hour`, `ticket_price`, `artists`, `tot_tickets`, `discounted`) VALUES
-(1, 'Album AC/DC', 3, 1, 'ACDC_logo.jpg', 'Rome', '2021-06-03', '19:00', 1.54448, 'AC/DC', 999999995, 0),
-(2, 'Gratest', 4, 3, 'neffex.jpg', 'New York', '2021-05-20', '14:30', 30, 'NEFFEX', 5, 0),
-(6, 'Metallica album', 3, 1, 'metallica.jpg', 'cuneo', '2021-05-20', '13:45', 62.1, 'Metallica', 30, 0),
-(9, 'Einsturzende Neubaut', 3, 2, 'einsturzende.jpg', 'Turin', '2022-06-16', '15:30', 50, 'Einsturzende Neubauten', 50, 0);
+INSERT INTO `events` (`id`, `title`, `id_type`, `id_genre`, `img_src`, `date`, `hour`, `ticket_price`, `artists`, `tot_tickets`, `discounted`, `place_id`) VALUES
+(1, 'Album AC/DC', 3, 1, 'ACDC_logo.jpg', '2021-06-03', '19:00', 1.54448, 'AC/DC', 999999995, 0, 1),
+(9, 'Einsturzende Neubaut', 3, 2, 'einsturzende.jpg', '2022-06-16', '15:30', 50, 'Einsturzende Neubauten', 50, 0, 3),
+(13, 'Alicia Keys', 4, 2, 'Alicia-Keys-Mediolanum-Forum-Assago-Milano-28-giugno-2022-738x415.jpg', '2021-06-26', '18:00', 44.6, 'Alicia Keys', 300, 0, 1),
+(14, 'Dangerous woman', 4, 2, 'Sweetener_Artwork.jpg', '2021-07-16', '21:30', 75, 'Ariana Grande', 5000, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -75,6 +75,33 @@ INSERT INTO `genres` (`id`, `genre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `places`
+--
+
+CREATE TABLE `places` (
+  `id` int(11) NOT NULL,
+  `place` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `nation` varchar(255) NOT NULL,
+  `lat` double NOT NULL,
+  `lng` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `places`
+--
+
+INSERT INTO `places` (`id`, `place`, `city`, `nation`, `lat`, `lng`) VALUES
+(1, 'Museo del cinema', 'Turin', 'Italy', 45.116177, 7.742615),
+(2, 'The Barri Gòtic', 'Barcellona', 'Spain', 41.385331792, 2.168665992),
+(3, 'Tour eiffel', 'Paris', 'France', 48.858093, 2.294694),
+(4, 'Piazza Galimberti', 'Cuneo', 'Italy', 44.38892, 7.54787),
+(5, 'Budokan', 'Tokyo', 'Japan', 35.097964, 134.326478),
+(6, 'Galleria d\'arte moderna', 'Milano', 'Italy', 41.917046, 12.47998);
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `prefer_events`
 --
 
@@ -89,11 +116,8 @@ CREATE TABLE `prefer_events` (
 --
 
 INSERT INTO `prefer_events` (`username`, `id_e`, `caso`) VALUES
-('bassi', 2, 1),
-('bassi', 6, 0),
-('bassi', 9, 1),
-('nico', 1, 0),
-('nico', 2, 0);
+('bassi', 14, 1),
+('nico', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -111,6 +135,7 @@ CREATE TABLE `prefer_genres` (
 --
 
 INSERT INTO `prefer_genres` (`username`, `id_genre`) VALUES
+('bassi', 1),
 ('bassi', 2),
 ('bassi', 3);
 
@@ -135,35 +160,10 @@ CREATE TABLE `tickets` (
 INSERT INTO `tickets` (`id`, `pdf_src`, `id_e`, `user`, `date`) VALUES
 (9, 'ticket_admin_1_0', 1, 'admin', '2021-05-11'),
 (10, 'ticket_admin_1_1', 1, 'admin', '2021-05-11'),
-(11, 'ticket_admin_2_0', 2, 'admin', '2021-05-11'),
-(12, 'ticket_admin_2_1', 2, 'admin', '2021-05-11'),
-(13, 'ticket_admin_2_2', 2, 'admin', '2021-05-11'),
-(14, 'ticket_admin_2_3', 2, 'admin', '2021-05-11'),
-(15, 'ticket_admin_2_4', 2, 'admin', '2021-05-11'),
-(16, 'ticket_admin_2_5', 2, 'admin', '2021-05-11'),
-(17, 'ticket_admin_6_0', 6, 'admin', '2021-05-11'),
-(18, 'ticket_admin_6_1', 6, 'admin', '2021-05-11'),
-(19, 'ticket_admin_6_2', 6, 'admin', '2021-05-11'),
-(20, 'ticket_admin_6_3', 6, 'admin', '2021-05-11'),
-(78, 'ticket_admin_2_6', 2, 'admin', '2021-05-13'),
-(79, 'ticket_admin_2_7', 2, 'admin', '2021-05-13'),
-(80, 'ticket_admin_2_8', 2, 'admin', '2021-05-13'),
-(81, 'ticket_admin_2_9', 2, 'admin', '2021-05-13'),
-(82, 'ticket_admin_2_10', 2, 'admin', '2021-05-13'),
-(83, 'ticket_admin_2_11', 2, 'admin', '2021-05-13'),
-(84, 'ticket_admin_2_12', 2, 'admin', '2021-05-13'),
-(85, 'ticket_admin_2_13', 2, 'admin', '2021-05-13'),
-(86, 'ticket_admin_2_14', 2, 'admin', '2021-05-13'),
-(87, 'ticket_admin_2_15', 2, 'admin', '2021-05-13'),
-(88, 'ticket_admin_2_16', 2, 'admin', '2021-05-13'),
-(89, 'ticket_admin_2_17', 2, 'admin', '2021-05-13'),
-(90, 'ticket_admin_2_18', 2, 'admin', '2021-05-13'),
-(157, 'ticket_nico_1_0', 1, 'nico', '2021-05-16'),
-(158, 'ticket_nico_1_1', 1, 'nico', '2021-05-16'),
-(159, 'ticket_nico_1_2', 1, 'nico', '2021-05-16'),
-(164, 'ticket_bassi_9_0', 9, 'bassi', '2021-05-20'),
-(165, 'ticket_bassi_9_1', 9, 'bassi', '2021-05-20'),
-(166, 'ticket_bassi_9_2', 9, 'bassi', '2021-05-20');
+(223, 'ticket_yuri_1_0', 1, 'yuri', '2021-05-28'),
+(224, 'ticket_yuri_1_1', 1, 'yuri', '2021-05-28'),
+(225, 'ticket_yuri_1_2', 1, 'yuri', '2021-05-28'),
+(226, 'ticket_yuri_1_3', 1, 'yuri', '2021-05-28');
 
 -- --------------------------------------------------------
 
@@ -210,9 +210,13 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`username`, `psw`, `email`, `name`, `surname`, `tel`, `admin`, `aviable_balance`) VALUES
 ('admin', '6e6bc4e49dd477ebc98ef4046c067b5f', 'admin@gmail.com', 'admin_name', 'admin_surname', NULL, 1, 8805),
-('bassi', '6e6bc4e49dd477ebc98ef4046c067b5f', 'bacobas.f@gmail.com', 'Francesco', 'Bassignana', '3349628407', 1, 990226),
+('bassi', '6e6bc4e49dd477ebc98ef4046c067b5f', 'bacobas.f@gmail.com', 'Francesco', 'Bassignana', '3349628407', 1, 988522),
+('cesca', '6e6bc4e49dd477ebc98ef4046c067b5f', 'francy.luki16@gmail.com', 'Francesca', 'Luchino', NULL, 1, 10000000),
 ('luca', '6e6bc4e49dd477ebc98ef4046c067b5f', 'isnf.sdf@sdf.sdf', 'luca', 'cognomeLuca', NULL, 0, 88888),
-('nico', '6e6bc4e49dd477ebc98ef4046c067b5f', 'bacobas.nik@gmail.com', 'niccolò', 'bassignana', NULL, 1, 991);
+('nico', '6e6bc4e49dd477ebc98ef4046c067b5f', 'bacobas.nik@gmail.com', 'niccolò', 'bassignana', NULL, 1, 991),
+('paolo', '6e6bc4e49dd477ebc98ef4046c067b5f', 'asd.as@asd.s', 'paolo', 'shekawat', '1928283838', 0, 66666),
+('prova', '6e6bc4e49dd477ebc98ef4046c067b5f', 'prova.prova@s.s', 'nomeProva', 'cognProva', '321929382', 0, 23432),
+('yuri', '6e6bc4e49dd477ebc98ef4046c067b5f', 'asd.asda@as.as', 'yuri', 'armando', '2376217232', 1, 10000000);
 
 --
 -- Indici per le tabelle scaricate
@@ -225,7 +229,8 @@ ALTER TABLE `events`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_genre` (`id_genre`),
   ADD KEY `id_type` (`id_type`),
-  ADD KEY `author` (`artists`);
+  ADD KEY `author` (`artists`),
+  ADD KEY `place_id` (`place_id`);
 
 --
 -- Indici per le tabelle `genres`
@@ -234,10 +239,17 @@ ALTER TABLE `genres`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indici per le tabelle `places`
+--
+ALTER TABLE `places`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `lat_lng` (`lat`,`lng`);
+
+--
 -- Indici per le tabelle `prefer_events`
 --
 ALTER TABLE `prefer_events`
-  ADD PRIMARY KEY (`username`,`id_e`),
+  ADD PRIMARY KEY (`username`,`id_e`,`caso`),
   ADD KEY `id_e` (`id_e`);
 
 --
@@ -275,7 +287,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT per la tabella `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT per la tabella `genres`
@@ -284,10 +296,16 @@ ALTER TABLE `genres`
   MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT per la tabella `places`
+--
+ALTER TABLE `places`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT per la tabella `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=231;
 
 --
 -- AUTO_INCREMENT per la tabella `types`
@@ -304,7 +322,8 @@ ALTER TABLE `types`
 --
 ALTER TABLE `events`
   ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`id_genre`) REFERENCES `genres` (`id`),
-  ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`id_type`) REFERENCES `types` (`id`);
+  ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`id_type`) REFERENCES `types` (`id`),
+  ADD CONSTRAINT `events_ibfk_3` FOREIGN KEY (`place_id`) REFERENCES `places` (`id`);
 
 --
 -- Limiti per la tabella `prefer_events`

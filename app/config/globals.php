@@ -4,6 +4,7 @@
     $dbUser = "root";
     $dbPsw = ""; 
     $adminPsw = "password";
+    $mailPsw = "ciaociao1!";
     
 
 
@@ -17,38 +18,38 @@
 
     //Load Composer's autoloader
 
-    function preparePdf($fileName , $html, $username){
-        
+        function preparePdf($fileName , $html, $username){
+            
 
-        $domPdf = new Dompdf();
-        
-        
-        $domPdf->load_html($html);
-        $domPdf->setPaper("A4" , "landscape");
-        
-        
-        $domPdf->render();
-        
-        $file = $domPdf->output();
-        
-        
-        $fp = fopen("../../pdf/". md5($username). "/" .$fileName , "a");
+            $domPdf = new Dompdf();
+            
+            
+            $domPdf->load_html($html);
+            $domPdf->setPaper("A4" , "landscape");
+            
+            
+            $domPdf->render();
+            
+            $file = $domPdf->output();
+            
+            
+            $fp = fopen("../../pdf/". md5($username). "/" .$fileName , "a");
 
-        fwrite($fp , $file);
-        fclose($fp);
+            fwrite($fp , $file);
+            fclose($fp);
 
-        //file_put_contents($fileName , $file, FILE_USE_INCLUDE_PATH);
-
-
-
-        return "../../pdf/". md5($username). "/" .$fileName;
-    }
+            //file_put_contents($fileName , $file, FILE_USE_INCLUDE_PATH);
 
 
 
+            return "../../pdf/". md5($username). "/" .$fileName;
+        }
 
 
-    function sendMail($userFrom, $psw , $to , $subject , $body , $file){
+
+
+
+    function sendMail($userFrom, $psw , $to , $subject , $body , $file= null){
         
         
         
@@ -81,7 +82,7 @@
         
         
             //Attachments
-            $mail->addAttachment($file);         //Add attachments
+            if($file) $mail->addAttachment($file);         //Add attachments
                 //Optional name
         
             //Content

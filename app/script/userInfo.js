@@ -5,26 +5,30 @@ const toUpperCase = (string) => {
 };
 
 const destroyUser = async () => {
-  const Res = await fetch(
-    `${url.origin}/esercizi/tesina/app/api/user/destroy_becomeAdmin.php`
-  );
-  const res = await Res.json();
-  if (res.status == 'success') {
-    window.location.href = 'index.html';
-  } else {
-    alert(`${res.status}: ${res.message}`);
+  if (confirm('Are you sure?')) {
+    const Res = await fetch(
+      `${url.origin}/esercizi/tesina/app/api/user/destroy_becomeAdmin.php`
+    );
+    const res = await Res.json();
+    if (res.status == 'success') {
+      window.location.href = 'index.html';
+    } else {
+      alert(`${res.status}: ${res.message}`);
+    }
   }
 };
 
 const destroyReceives = async () => {
-  const Res = await fetch(
-    `${url.origin}/esercizi/tesina/app/api/ticket/deleteFromUser.php`
-  );
-  const res = await Res.json();
+  if (confirm('Are you sure?')) {
+    const Res = await fetch(
+      `${url.origin}/esercizi/tesina/app/api/ticket/deleteFromUser.php`
+    );
+    const res = await Res.json();
 
-  alert(`${res.status}: ${res.message}`);
-  if (res.status == 'success') {
-    $('#list-of-pdf').empty();
+    alert(`${res.status}: ${res.message}`);
+    if (res.status == 'success') {
+      $('#list-of-pdf').empty();
+    }
   }
 };
 
