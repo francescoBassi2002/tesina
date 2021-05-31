@@ -33,6 +33,11 @@ const destroyReceives = async () => {
 };
 
 $(document).ready(async () => {
+  const message = url.searchParams.get('message');
+  if (message) {
+    window.location.href = `${url.origin}/esercizi/tesina/userInfo.html`;
+    alert(message);
+  }
   try {
     const User = await fetch(
       `${url.origin}/esercizi/tesina/app/api/user/getCurrent_signUp.php`
@@ -65,9 +70,7 @@ $(document).ready(async () => {
     if (pdf.status == 'success') {
       pdf.data.forEach((el) => {
         $('#list-of-pdf').append(
-          `<li class="list-group-item"><a href="pdf/${CryptoJS.MD5(
-            user.data.username
-          )}/${el.pdf_src}.pdf">${el.pdf_src}.pdf</a></li>`
+          `<li class="list-group-item"><a href="api/ticket/redirect_pdf.php?pdf=${el.pdf_src}.pdf">${el.pdf_src}.pdf</a></li>`
         );
       });
     } else {

@@ -77,7 +77,9 @@
         </button>
       </div>
       <div class="main-content container-fluid">
+        <div class="row" id="cards-events">
 
+        </div>
       </div>
     </div>
   </div>
@@ -151,7 +153,6 @@
         />
         <div class="carousel-caption d-none d-md-block">
           <h5>%Title%</h5>
-          <p>Some representative placeholder content for the first slide.</p>
         </div>
       </div>
   </script>
@@ -168,6 +169,10 @@
     <!-- carousel items -->
   </div>
 </div>
+
+</script>
+<script id="eventCard" type="text/html">
+<?php require("components/event-card.php") ?>
 
 </script>
 <script src="script/jquery/jquery.js"  crossorigin="anonymous"></script>

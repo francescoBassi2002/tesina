@@ -384,6 +384,7 @@ td {
 
 .go_main {
   border-color: var(--secondary);
+  background-color: black;
   color: var(--secondary);
 }
 
@@ -563,4 +564,16 @@ td {
 
 .underlined {
   text-decoration: underline var(--secondary);
+}
+
+.cool-btn {
+  background-color: var(--bg-color);
+  color: white;
+  border: 1px solid var(--secondary);
+  padding: 10px 10px 10px 10px;
+}
+
+.cool-btn:hover {
+  background-color: var(--secondary);
+  color: black;
 }

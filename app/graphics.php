@@ -45,7 +45,7 @@
                 <img src="image/thinking.png" class="img-fluid">
             </div>
         </div>
-        <div class="bad-event" style="margin-top:10%;">
+        <div class="bad-event" id="bad-event" style="margin-top:10%;">
         <h1 class="text-center" style="margin-bottom:5%;">Unsuccessful events</h1>
         </div>
         <div class="promotion">
@@ -68,8 +68,13 @@
 
         </div>
         <hr class="bg-light">
-        <div class="container-fluid statistic text-light" style="margin-top: 40px">
+        <div class="container-fluid statistic text-light" style="margin-top: 40px; display:block">
           <h2 class="text-center">Statistic </h2>
+          <div id="es1">
+          <h1>Next 5 month events with more ticket purchased</h1>
+
+
+          </div>
           <ul class="statistic-list">
             <!-- 3 QUERY -->
           </ul>

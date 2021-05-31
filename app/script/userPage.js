@@ -11,6 +11,7 @@ const carousel = $('#single-carousel').text();
 const carouselIndicatorFirst = $('#carousel-first-indicator').text();
 const carouselIndicator = $('#carousel-indicator').text();
 const carouselItem = $('#carousel-item').text();
+const card = $('#eventCard').text();
 let genreInput = $('#genre-input').text();
 let currentUser = {};
 
@@ -141,7 +142,14 @@ const tableEvents = () => {
     .then((res) => res.json())
     .then((res) => {
       console.log(res);
-      createBootstrapTable(res, $('.main-content'));
+
+      res.forEach((el) => {
+        console.log(el);
+        $('#cards-events').append(
+          card.replaceAll('%title%', el.title).replace('%img_src%', el.img_src)
+        );
+      });
+      //createBootstrapTable(res, $('.main-content'));
     })
     .catch((err) => console.log);
 };
@@ -241,7 +249,7 @@ whish_list = () => {
     .catch((err) => console.log);
 
   $('#sidebar').append(
-    "<button type='button' id='go_main' class='btn btn-outline-light go_main' style='margin-left: 30px;' onclick='goBackMenu()'>BACK</button>"
+    "<button type='button' id='go_main' class='cool-btn go_main' style='margin-left: 30px;' onclick='goBackMenu()'>BACK</button>"
   );
 };
 
