@@ -1,12 +1,12 @@
 
 <?php
-require "../../models/ticketModel.php";
-require "../../models/userModel.php";
-require "../../models/eventModel.php";
-require "../../config/globals.php";
-require "../../config/db.php";
+require_once "../../models/ticketModel.php";
+require_once "../../models/userModel.php";
+require_once "../../models/eventModel.php";
+require_once "../../config/globals.php";
+require_once "../../config/db.php";
 
-$conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
+$conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
 $Ticket = new Ticket($conn);
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
     if(key_exists("title" , $_GET)){

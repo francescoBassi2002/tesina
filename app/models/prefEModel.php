@@ -1,56 +1,58 @@
 <?php 
 class PreferEvents{
-    private $db;
-    private $query_count;
-    private $table = 'prefer_events';
+    private static $db;
+    private static $query_count;
+    private static $table = 'prefer_events';
 
 
-    function __construct($db){
-        $this->db = $db;
-    }
 
     
 
-    public function addWishList($title , $username,$case){
-        $this->query_count +=1 ;
-        $id = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
+    public static function addWishList($title , $username,$case){
+        self::$query_count +=1 ;
+        Db::query("SELECT id FROM events WHERE title = ?" , [$title]);
+        $id = Db::FetchOne()["id"];
 
         //$table= ($case == 0? "prefer_events" : "like_events");
 
-        if($case == 1 && $this->db->query("SELECT * FROM $this->table WHERE id_e = ? AND username = ?" , [$id,$username])->FetchOne()){
-            $query = "DELETE FROM $this->table WHERE username = ? AND id_e = ? AND caso = ?";
+        if($case == 1 && Db::query("SELECT * FROM ".self::$table." WHERE id_e = ? AND username = ?" , [$id,$username])::FetchOne()){
+            $query = "DELETE FROM ".self::$table." WHERE username = ? AND id_e = ? AND caso = ?";
         }else{
-            $query = "INSERT INTO $this->table (username , id_e, caso) VALUES ( ? , ? , ?)";
+            $query = "INSERT INTO ".self::$table." (username , id_e, caso) VALUES ( ? , ? , ?)";
         }
 
-        $res = $this->db->query($query , [$username , $id, $case]);
+        $res = Db::query($query , [$username , $id, $case]);
         return $res;
 
     }
 
-    public function getAllWishList($username){
-        $this->query_count += 1;
+    public static function getAllWishList($username){
+        self::$query_count += 1;
 
-        $res = $this->db->query("SELECT E.title FROM events E , $this->table P WHERE P.id_e = E.id AND username = ? AND caso = 0" , [$username])->FetchAll();
+        Db::query("SELECT E.title FROM events E , ".self::$table." P WHERE P.id_e = E.id AND username = ? AND caso = 0" , [$username]);
+        $res = Db::FetchAll();
 
         return $res;
 
     }
     
-    public function existLikeList($title , $username){
-        $this->query_count += 1;
-        $id = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
+    public static function existLikeList($title , $username){
+        self::$query_count += 1;
+        Db::query("SELECT id FROM events WHERE title = ?" , [$title]);
+        $id = Db::FetchOne()["id"];
 
-        return $this->db->query("SELECT * FROM $this->table WHERE id_e = ? AND username = ? AND caso = 1" , [$id,$username])->FetchOne();
+        Db::query("SELECT * FROM ".self::$table." WHERE id_e = ? AND username = ? AND caso = 1" , [$id,$username]);
+        return Db::FetchOne();
     }
 
-    public function removeOneWishList($username , $title){
+    public static function removeOneWishList($username , $title){
 
-        $this->query_count += 1;
+        self::$query_count += 1;
        
-        $id_e = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
+        Db::query("SELECT id FROM events WHERE title = ?" , [$title]);
+        $id_e = Db::FetchOne()["id"];
 
-        $res = $this->db->query("DELETE FROM $this->table WHERE id_e= ? AND username = ? AND caso = 0" , [$id_e,$username]);
+        $res = Db::query("DELETE FROM ".self::$table." WHERE id_e= ? AND username = ? AND caso = 0" , [$id_e,$username]);
 
         return $res;
     }

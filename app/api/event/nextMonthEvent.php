@@ -1,10 +1,10 @@
 
 <?php
-require "../../models/eventModel.php";
-require "../../config/globals.php";
-require "../../config/db.php";
+require_once "../../models/eventModel.php";
+require_once "../../config/globals.php";
+require_once "../../config/db.php";
 
-$conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
+$conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
 $Event = new Event($conn);
 
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
@@ -16,11 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
         }else{
             
             if($es == "es1"){
-                $res = $Event->es1();
+                $res = Event::es1();
             }else if($es == "es2"){
-                $res = $Event->es2();
+                $res = Event::es2();
             }else if($es == "es3"){
-                $res = $Event->es3();
+                $res = Event::es3();
             }
 
 

@@ -1,11 +1,11 @@
 <?php
 
-    require "../../models/eventModel.php";
-    require "../../models/userModel.php";
-    require "../../config/globals.php";
-    require "../../config/db.php";
+    require_once "../../models/eventModel.php";
+    require_once "../../models/userModel.php";
+    require_once "../../config/globals.php";
+    require_once "../../config/db.php";
 
-    $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
+    $conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
     $Event = new Event($conn);
     $User = new Users($conn);
     $extensionAllowed = ["png" , "jpg" , "jpeg" , "gif"];
@@ -19,7 +19,7 @@
     
         
     
-        $res = $Event->getAll($genre , $type, $bad_success);
+        $res = Event::getAll($genre , $type, $bad_success);
         /*
         for($a = 0; $a < count($res) ; $a += 1){
             unset($res[$a]["discounted"]);
@@ -46,7 +46,7 @@
         /*
         echo $_SESSION["username"] . "<br>";
         echo $psw . "<br>";*/
-        $res = $User->logIn($_SESSION["username"] ,md5($psw) );
+        $res = Users::logIn($_SESSION["username"] ,md5($psw) );
 
 
 
@@ -64,7 +64,7 @@
 
         
         
-        if (!$Event->exist($title)){
+        if (!Event::exist($title)){
 
             $img_src = $img["name"];
 
@@ -95,7 +95,7 @@
     
             move_uploaded_file($img["tmp_name"], trim($destination));
 
-            $res = $Event->create($title , $img_src , $date , $hour , $ticket_price , $artists , $genre, $type , $tot_tickets, $id_place);
+            $res = Event::create($title , $img_src , $date , $hour , $ticket_price , $artists , $genre, $type , $tot_tickets, $id_place);
 
             if ($res){
                 $output = array("status" => "success" , "message" => "ok");

@@ -1,12 +1,11 @@
 <?php
-    require "../../models/userModel.php";
-    require "../../models/eventModel.php";
-    require "../../config/globals.php";
-    require "../../config/db.php";
+    require_once "../../models/userModel.php";
+    require_once "../../models/eventModel.php";
+    //require_once "../../config/globals.php";
     
-    $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
-    $User = new Users($conn);
-    $Event = new Event($conn);
+    //$conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
+    //$User = new Users($conn);
+    //$Event = new Event($conn);
     session_start();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -23,7 +22,7 @@
        
 
         if(key_exists("privacy_terms" , $_POST)){
-            $res = $User->login($username , $psw);
+            $res = Users::logIn($username , $psw);
             //print_r($res);
             
     
@@ -44,7 +43,7 @@
                 $_SESSION["admin"] = ($res["admin"] == 1 ? true : false);
                 $_SESSION["psw"] = $res["psw"];
 
-                $Event->deleteOldEvents();
+                Event::deleteOldEvents();
 
                 echo json_encode(array("status" => "success" , "message" => "ok"));
             }

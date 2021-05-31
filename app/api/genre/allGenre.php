@@ -1,13 +1,13 @@
 <?php
-    require "../../models/genreModel.php";
-    require "../../config/globals.php";
-    require "../../config/db.php";
+    require_once "../../models/genreModel.php";
+    require_once "../../config/globals.php";
+    require_once "../../config/db.php";
     
-    $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
+    $conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
     $Genre = new Genre($conn);
 
     if ($_SERVER["REQUEST_METHOD"] == "GET"){
-        $res = $Genre->selectAll();
+        $res = Genre::selectAll();
         echo json_encode(array("status" => "success" , "data" => $res));
     
     }else{

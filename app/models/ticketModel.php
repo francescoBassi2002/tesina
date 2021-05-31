@@ -1,23 +1,22 @@
  <?php
 class Ticket{
 
-    private $db;
-    private $query_count;
-    private $table = 'tickets';
+    private static $db;
+    private static $query_count;
+    private static $table = 'tickets';
 
 
-    function __construct($db){
-        $this->db = $db;
-    }
+   
 
-    public function add($username, $title, $count){
+    public static function add($username, $title, $count){
         
         $mailPsw = "ciaociao1!";
-        $Event = new Event($this->db);
+        //Event = new Event(Db);
         $not_error = true;
-        $this->query_count += 1;
+        static::$query_count += 1;
 
-        $id_e = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
+        Db::query("SELECT id FROM events WHERE title = ?" , [$title]);
+        $id_e = Db::FetchOne()["id"];
 
         $pdfName = "ticket_" . $username . "_" . $id_e . "_";
 
@@ -31,14 +30,16 @@ class Ticket{
 
             //pdf name: ticket_<username>_<event id>_<num of time that this user buyed tickets refered at this event (howManyPdf)>
             //echo($a);
-            $howManyPdf = $this->db->query("SELECT COUNT(*) FROM $this->table WHERE user = ? AND id_e = ?" , [$username , $id_e])->FetchOne()["COUNT(*)"];
+            Db::query("SELECT COUNT(*) FROM ".static::$table." WHERE user = ? AND id_e = ?" , [$username , $id_e]);
+            $howManyPdf = Db::FetchOne()["COUNT(*)"];
             $pdfName = $pdfName . $howManyPdf;
 
-            $res = $this->db->query("INSERT INTO $this->table (pdf_src ,id_e , user, date) VALUES (? , ? , ? ,?)" , [$pdfName ,$id_e , $username , date("Y-m-d")]);
+            $res = Db::query("INSERT INTO ".static::$table." (pdf_src ,id_e , user, date) VALUES (? , ? , ? ,?)" , [$pdfName ,$id_e , $username , date("Y-m-d")]);
 
-            $info =  $this->db->query("SELECT * FROM tickets, users WHERE tickets.user = users.username AND pdf_src = ?" , [$pdfName])->FetchOne();
+            Db::query("SELECT * FROM tickets, users WHERE tickets.user = users.username AND pdf_src = ?" , [$pdfName]);
+            $info = Db::FetchOne();
 
-            $cost = $Event->getCostByTitle($title);
+            $cost = Event::getCostByTitle($title);
 
             $body = "
                 
@@ -75,32 +76,34 @@ class Ticket{
 
     }
 
-    public function howMany_date($title){
-        $this->query_count +=1;
+    public static function howMany_date($title){
+        static::$query_count +=1;
 
-        $res = $this->db->query("SELECT COUNT(*), T.date FROM events E, tickets T 
+        Db::query("SELECT COUNT(*), T.date FROM events E, tickets T 
             WHERE E.id = T.id_e 
             AND E.title =?
-            GROUP BY T.date" , [$title])
-        ->FetchAll();
+            GROUP BY T.date" , [$title]);
+        $res = Db::FetchAll();
 
         return $res;
     }
 
-    public function howMany_title($title){
-        $this->query_count +=1;
+    public static function howMany_title($title){
+        static::$query_count +=1;
 
-        $id_e = $this->db->query("SELECT id FROM events WHERE title = ?" , [$title])->FetchOne()["id"];
+        Db::query("SELECT id FROM events WHERE title = ?" , [$title]);
+        $id_e = Db::FetchOne()["id"];
 
-        $res = $this->db->query("SELECT COUNT(*) FROM tickets WHERE id_e = ?" , [$id_e])->FetchOne()["COUNT(*)"];
+        Db::query("SELECT COUNT(*) FROM tickets WHERE id_e = ?" , [$id_e]);
+        $res = Db::FetchOne()["COUNT(*)"];
         
 
         return $res;
     }
 
-    public function deleteFromUser($user){
-        $this->query_count +=1;
-        $res = $this->db->query("DELETE FROM tickets WHERE user = ?" , [$user]);
+    public static function deleteFromUser($user){
+        static::$query_count +=1;
+        $res = Db::query("DELETE FROM tickets WHERE user = ?" , [$user]);
         return $res;
     }
 

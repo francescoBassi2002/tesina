@@ -1,27 +1,27 @@
 <?php
 
+require_once "../../config/db.php";
+
 class Users{
-    private $db = null;
-    private $table = 'users';
-    private $queryCount = 0;
+    
+    private static $table = 'users';
+    private static $queryCount = 0;
 
-    function __construct($db){
-        $this->db = $db;
-    }
+    
 
-    public function logIn($username , $psw){
-        $this->queryCount +=1;
-
-        $res = $this->db->select("*")->from($this->table)->where("username = ? AND psw = ?")->params([ $username , $psw])->FetchOne();
-
+    public static function logIn($username , $psw){
+        self::$queryCount +=1;
+        Db::query("SELECT * FROM users WHERE username = ? AND psw = ?" , [$username , $psw]);
+        $res = Db::FetchOne();
         return $res;
 
     }
 
-    public function exist($username){
-        $this->queryCount += 1;
+    public static function exist($username){
+        self::$queryCount += 1;
 
-        $res = $this->db->select("*")->from($this->table)->where("username = ?")->params([$username])->FetchOne();
+        Db::query("SELECT * FROM users WHERE username = ?" , [$username]);
+        $res = Db::FetchOne();
 
         if ($res){
             return true;
@@ -31,34 +31,35 @@ class Users{
 
     }
 
-    public function signUp($username , $psw , $name , $surname, $tel , $email , $money){
-        $this->queryCount +=1;
+    public static function signUp($username , $psw , $name , $surname, $tel , $email , $money){
+        self::$queryCount +=1;
 
         $params = [$username , $psw , $email , $name , $surname , $tel , 0 , $money];
-        $res = $this->db->query("INSERT INTO $this->table (username , psw , email , name , surname, tel, admin, aviable_balance) VALUES (? , ? , ? , ? , ? , ? , ? , ?)" , $params);
+        $res = Db::query("INSERT INTO users  (username , psw , email , name , surname, tel, admin, aviable_balance) VALUES (? , ? , ? , ? , ? , ? , ? , ?)" , $params);
         
 
         return $res;
     }
 
-    public function selectAll(){
-        $this->queryCount +=1;  
-        return $this->db->select('*')->from($this->table)->FetchAll();
+    public static function selectAll(){
+        self::$queryCount +=1;  
+        Db::query("SELECT * FROM users");
+        return Db::FetchAll();
 
     }
-    public function getQueryCount(){
-        return $this->queryCount;
+    public static function getQueryCount(){
+        return self::$queryCount;
     }
     
-    public function pay($username , $cost){
-        $this->queryCount +=1;
+    public static function pay($username , $cost){
+        self::$queryCount +=1;
         $usersTable = "users";
         
-        $res = $this->db->query("UPDATE $usersTable SET aviable_balance = aviable_balance - ? WHERE username = ?" , [$cost , $username]);
+        $res = Db::query("UPDATE $usersTable SET aviable_balance = aviable_balance - ? WHERE username = ?" , [$cost , $username]);
         if(!$res){
             $out = "error";
         }else{
-            if(intval($this->getCurrentBalance($username)) - $cost <0){
+            if(intval(self::getCurrentBalance($username)) - $cost <0){
                 $out = "no money";
             }else{
                 $out = "success";
@@ -67,27 +68,29 @@ class Users{
         return $out;
     }
 
-    public function getCurrentBalance($username){
-        $this->queryCount += 1;
-        $res = $this->db->query("SELECT aviable_balance FROM users WHERE username = ?" , [$username])->FetchOne()["aviable_balance"];
+    public static function getCurrentBalance($username){
+        self::$queryCount += 1;
+        Db::query("SELECT aviable_balance FROM users WHERE username = ?" , [$username]);
+        $res = Db::FetchOne()["aviable_balance"];
         return $res;
     }
 
-    public function destroy($username){
-        $this->queryCount += 1;
-        $res = $this->db->query("DELETE FROM users WHERE username = ?" , [$username]);
+    public static function destroy($username){
+        self::$queryCount += 1;
+        $res = Db::query("DELETE FROM users WHERE username = ?" , [$username]);
         return $res;
     }
 
-    public function becomeAdmin($username){
-        $this->queryCount += 1;
-        $res = $this->db->query("UPDATE users SET admin = '1' WHERE username = ?" , [$username]);
+    public static function becomeAdmin($username){
+        self::$queryCount += 1;
+        $res = Db::query("UPDATE users SET admin = '1' WHERE username = ?" , [$username]);
         return $res;
     }
 
-    public function getAllPdf($username){
-        $this->queryCount += 1;
-        $res = $this->db->query("SELECT pdf_src FROM tickets WHERE user = ?" , [$username])->FetchAll();
+    public static function getAllPdf($username){
+        self::$queryCount += 1;
+        Db::query("SELECT pdf_src FROM tickets WHERE user = ?" , [$username]);
+        $res = Db::FetchAll();
         return $res;
     }
 }

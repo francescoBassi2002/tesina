@@ -1,13 +1,13 @@
 <?php
-    require "../../models/typeModel.php";
-    require "../../config/globals.php";
-    require "../../config/db.php";
+    require_once "../../models/typeModel.php";
+    require_once "../../config/globals.php";
+    require_once "../../config/db.php";
     
-    $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
+    $conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
     $Type = new Type($conn);
 
     if ($_SERVER["REQUEST_METHOD"] == "GET"){
-        $res = $Type->getAllType();
+        $res = Type::getAllType();
         echo json_encode(array("status" => "success" , "data" => $res));
     
     }else{

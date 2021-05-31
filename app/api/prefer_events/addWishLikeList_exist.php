@@ -1,11 +1,11 @@
 
 <?php
-require "../../models/prefEModel.php";
-require "../../config/globals.php";
-require "../../config/db.php";
+require_once "../../models/prefEModel.php";
+require_once "../../config/globals.php";
+require_once "../../config/db.php";
 
-$conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
-$PrefEv = new PreferEvents($conn);
+$conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
+//$PreferEvents = new PreferEvents($conn);
 
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
     if(key_exists("title" , $_GET) && key_exists("case" , $_GET)){
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
             session_start();
             if($_SESSION && key_exists("username" , $_SESSION)){
     
-                $res = $PrefEv->addWishList($title , $_SESSION["username"] , $case);
+                $res = PreferEvents::addWishList($title , $_SESSION["username"] , $case);
     
                 if ($res){
                     echo json_encode(array("status" => "success" , "message"=>($case == 0?"added succesfully at the wish list" : "nice choose!")));
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
         session_start();
             if($_SESSION && key_exists("username" , $_SESSION)){
                 
-                $res = $PrefEv->existLikeList($title , $_SESSION["username"]);
+                $res = PreferEvents::existLikeList($title , $_SESSION["username"]);
     
                 if ($res){
                     echo json_encode(array("status" => "success" , "message"=>"exist"));

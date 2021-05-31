@@ -1,18 +1,16 @@
 <?php
 
 class Type{
-    private $db;
-    private $queryCount;
-    private $table = "events";
+    private static $db;
+    private static $queryCount;
+    private static $table = "events";
 
-    function __construct($db){
-        $this->db = $db;
-    }
+    
+    public static function getAllType(){
+        self::$queryCount +=1;
 
-    public function getAllType(){
-        $this->queryCount +=1;
-
-        $res = $this->db->query("SELECT * FROM types")->FetchAll();
+        Db::query("SELECT * FROM types");
+        $res = Db::FetchAll();
 
         return $res;
     }

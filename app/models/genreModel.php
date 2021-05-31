@@ -1,36 +1,37 @@
 <?php
+require_once "../../config/db.php";
 
 class Genre{
-    private $db = null;
-    private $table = 'genres';
-    private $queryCount = 0;
-
-    function __construct($db){
-        $this->db = $db;
-    }
+    //private $db = null;
+    private static $table = 'genres';
+    private static $queryCount = 0;
 
     
+    
 
-    public function selectAll(){
-        $this->queryCount +=1;  
-        return $this->db->select('*')->from($this->table)->FetchAll();
+    public static function selectAll(){
+        self::$queryCount +=1;  
+        Db::select('*');
+        Db::from(self::$table);
+        return Db::FetchAll();
 
     }
-    public function getQueryCount(){
-        return $this->queryCount;
+    public static function getQueryCount(){
+        return self::$queryCount;
     }
     
-    public function setGenrePrefer($username , $genre){
+    public static function setGenrePrefer($username , $genre){
             
-            $id = $this->db->query("SELECT id FROM genres WHERE genre = ?" , [$genre])->FetchOne()["id"];
+            Db::query("SELECT id FROM genres WHERE genre = ?" , [$genre]);
+            $id = Db::FetchOne()["id"];
         
-            return $this->db->query("INSERT INTO prefer_genres VALUES (?,?)" , [$username, $id]);
+            return Db::query("INSERT INTO prefer_genres VALUES (?,?)" , [$username, $id]);
         
 
       
     }
-    public function getPreferences($username){
-        $this->queryCount +=1;  
+    public static function getPreferences($username){
+        self::$queryCount +=1;  
 
         $query = "SELECT 
                     COUNT(*), G.genre 
@@ -45,7 +46,8 @@ class Genre{
                     G.genre 
                 ORDER BY 
                     `COUNT(*)` DESC";
-        $res = $this->db->query($query , [$username])->FetchAll();
+        Db::query($query , [$username]);
+        $res = Db::FetchAll();
         return $res;
     }
 

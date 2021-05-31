@@ -78,6 +78,8 @@ const createBootstrapTable = (arrayObj, where) => {
 };
 
 const createBootstrapTable1 = (arrayObj, where) => {
+  //creata "alla buona" perchè fatto all'ultimo siccome capito solo ora
+  //che la specifica di usare la tabella era solo riferita alle query specifiche dettate nel testo della consegna
   const keys = Object.keys(arrayObj[0]);
   console.log('table');
   console.log(arrayObj);

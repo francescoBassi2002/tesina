@@ -1,9 +1,9 @@
 <?php
-    require "../../models/userModel.php";
-    require "../../config/globals.php";
-    require "../../config/db.php";
+    require_once "../../models/userModel.php";
+    require_once "../../config/globals.php";
+    require_once "../../config/db.php";
 
-    $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
+    $conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
     $User = new Users($conn);
 
     if ($_SERVER["REQUEST_METHOD"] == "GET"){
@@ -22,7 +22,7 @@
             }
 
             if($deltable){
-                $res = $User->destroy($user);
+                $res = Users::destroy($user);
 
                 $fileList = scandir("../../pdf/" . md5($user));
 
@@ -63,7 +63,7 @@
             session_start();
             if (key_exists("username" , $_SESSION)){
                 if($psw == $adminPsw){
-                    $res = $User->becomeAdmin($_SESSION["username"]);
+                    $res = Users::becomeAdmin($_SESSION["username"]);
                     if($res){
                         header("location: ../../userPage.php?message=successful+became+admin");
                     }else{

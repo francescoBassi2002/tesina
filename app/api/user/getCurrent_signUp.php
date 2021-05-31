@@ -1,9 +1,9 @@
 <?php
-    require "../../models/userModel.php";
-    require "../../config/globals.php";
-    require "../../config/db.php";
+    require_once "../../models/userModel.php";
+    require_once "../../config/globals.php";
+    require_once "../../config/db.php";
 
-    $conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
+    $conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
     $User = new Users($conn);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -33,8 +33,8 @@
         if($cond && intval($money) !=0){
             if ($psw == $psw2){
 
-                if (!$User->exist($username)){
-                    $User->signUp($username , md5($psw) , $name , $surname ,$tel, $email , $money);
+                if (!Users::exist($username)){
+                    Users::signUp($username , md5($psw) , $name , $surname ,$tel, $email , $money);
                     mkdir("../../pdf/".md5($username));
                     echo json_encode(array("status" => "success", "message" => "registred succesfully"));
                 }else{
@@ -55,7 +55,7 @@
         session_start();
         
         if (key_exists("username" , $_SESSION)){
-            echo json_encode(array("status" => "success", "data" => $User->logIn($_SESSION["username"] , $_SESSION["psw"])));
+            echo json_encode(array("status" => "success", "data" => Users::logIn($_SESSION["username"] , $_SESSION["psw"])));
         }else{
             echo json_encode(array("status" => "fail" , "message" => "not logged"));
         }

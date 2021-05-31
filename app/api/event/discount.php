@@ -1,10 +1,10 @@
 
 <?php
-require "../../models/eventModel.php";
-require "../../config/globals.php";
-require "../../config/db.php";
+require_once "../../models/eventModel.php";
+require_once "../../config/globals.php";
+require_once "../../config/db.php";
 
-$conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
+$conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
 $Event = new Event($conn);
 
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
@@ -14,15 +14,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
     if($title && $percent){
 
         if(intval($percent) > 0 && intval($percent) <= 100){
-            $badEvents = $Event->getBadSuccess();
+            $badEvents = Event::getBadSuccess();
             $titles = array();
             foreach($badEvents as $event){
                 array_push($titles , strtolower($event["title"]));
             }
 
 
-            if(in_array($title , $titles) && $Event->getDiscount($title) == "0"){
-                $res = $Event->discount($title, $percent);
+            if(in_array($title , $titles) && Event::getDiscount($title) == "0"){
+                $res = Event::discount($title, $percent);
     
     
     

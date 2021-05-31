@@ -1,10 +1,10 @@
 
 <?php
-require "../../models/prefEModel.php";
-require "../../config/globals.php";
-require "../../config/db.php";
+require_once "../../models/prefEModel.php";
+require_once "../../config/globals.php";
+require_once "../../config/db.php";
 
-$conn = new db($dbHost , $dbUser , $dbPsw , $dbName);
+$conn = new Db($dbHost , $dbUser , $dbPsw , $dbName);
 $PrefE = new PreferEvents($conn);
 
 if ($_SERVER["REQUEST_METHOD"] == "GET"){
